@@ -6,3 +6,7 @@
 ## Plan
 
 ## Study 
+
+### Pre-Processing
+
+### NLP
