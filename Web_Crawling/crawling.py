@@ -11,7 +11,7 @@ from selenium.webdriver.common.keys import Keys
 chrome_options = Options()
 chrome_options.add_experimental_option("detach", True)
 chrome_options.add_experimental_option("excludeSwitches", ["enable-logging"])
-search_key = '성남 스터디카페' #원하는 검색어
+search_key = '광운대 스터디카페' #원하는 검색어
 
 review_data = []
 
@@ -41,7 +41,7 @@ driver.implicitly_wait(5) #로딩까지 기다리기 위해 implicitly_wait와 s
 driver.get(url) #드라이버로 받은 주소를 실행
 time.sleep(3)
 driver.switch_to_frame('searchIframe') # 네이버플레이스 맨 왼쪽 장소를 보여주는 프레임
-
+len(driver.find_elements_by_partial_link_text('광고'))
 
 page_cnt = 0
 current_page = driver.page_source
@@ -62,19 +62,23 @@ else:
         
 driver.get(url) #페이지 체크 후 다시 원래 페이지로
 time.sleep(3)
+current_page_cnt = 1
 for i in range(page_cnt):
     driver.switch_to_frame('searchIframe')
     scrollDown(driver) #스크롤 내려서 모두 로드
     soup = BeautifulSoup(current_page, 'html.parser') #html 로드
     list_cnt = len(soup.select('#_pcmap_list_scroll_container > ul > li'))
-    current_page_cnt = 1
     current_place = 0
-    driver.switch_to_default_content()    
+    driver.switch_to_default_content()
+    ad_cnt = len(driver.find_elements_by_partial_link_text('광고'))    
     for i in range(list_cnt): #페이지당 장소 최대 50개
         driver.switch_to_frame('searchIframe') # 해당 장소 리뷰 크롤링이 끝나면 프레임 전환
         current_page = driver.page_source
         soup = BeautifulSoup(current_page, 'html.parser') #html 로드
-        place_list = driver.find_element_by_xpath(f'/html/body/div[3]/div/div/div[1]/ul/li[{i+1}]/div[2]/a[1]')  # 해당 장소의 xpath 경로
+        if current_page_cnt == 1 and ad_cnt > 0:
+            place_list = driver.find_element_by_xpath(f'/html/body/div[3]/div/div/div[1]/ul/li[{i+1+ad_cnt}]/div[2]/a[1]')
+        else:    
+            place_list = driver.find_element_by_xpath(f'/html/body/div[3]/div/div/div[1]/ul/li[{i+1}]/div[2]/a[1]')  # 해당 장소의 xpath 경로
         place_name = soup.select_one(f'li:nth-child({i+1}) > div._3ZU00._1rBq3 > a:nth-child(1) > div > div > span').text
         place_list.click() #클릭
         time.sleep(2) #페이지 로드를 기다림
