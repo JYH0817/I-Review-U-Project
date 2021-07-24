@@ -121,13 +121,13 @@ for i in range(page_cnt):
                         review_data.append((place_name, review_text, star_rate)) #리스트로 저장
                         time.sleep(0.1)           
         text_review_exists = 0  #다음 장소를 위해 글 리뷰 여부 초기화
-        current_place += 1
-        current_page_cnt += 1                
+        current_place += 1               
         driver.switch_to_default_content() #프레임 초기화
         time.sleep(2)
-    if list_cnt >= 50 and current_place == list_cnt and current_page < page_cnt:
+    if list_cnt >= 50 and current_place == list_cnt and current_page_cnt < page_cnt:
         next_page = driver.find_element_by_css_selector('#app-root > div > div > div._2ky45 > a:nth-child(7) > svg') #페이지 넘기기
         next_page.click()
+        current_page_cnt += 1 
 
 df = pd.DataFrame(review_data, columns = ['장소명', '리뷰', '별점']) #데이터 프레임으로 만들어 엑셀에 저장
 df.to_csv('place_review.csv', encoding='utf-8-sig', index=False)
