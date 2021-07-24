@@ -11,7 +11,7 @@ from selenium.webdriver.common.keys import Keys
 chrome_options = Options()
 chrome_options.add_experimental_option("detach", True)
 chrome_options.add_experimental_option("excludeSwitches", ["enable-logging"])
-search_key = '광운대 스터디카페' #원하는 검색어
+search_key = '성남 스터디카페' #원하는 검색어
 
 review_data = []
 
@@ -65,20 +65,17 @@ time.sleep(3)
 current_page_cnt = 1
 for i in range(page_cnt):
     driver.switch_to_frame('searchIframe')
+    ad_cnt = len(driver.find_elements_by_partial_link_text('광고'))
     scrollDown(driver) #스크롤 내려서 모두 로드
     soup = BeautifulSoup(current_page, 'html.parser') #html 로드
     list_cnt = len(soup.select('#_pcmap_list_scroll_container > ul > li'))
     current_place = 0
-    driver.switch_to_default_content()
-    ad_cnt = len(driver.find_elements_by_partial_link_text('광고'))    
-    for i in range(list_cnt): #페이지당 장소 최대 50개
+    driver.switch_to_default_content()   
+    for i in range(ad_cnt, list_cnt): #페이지당 장소 최대 50개
         driver.switch_to_frame('searchIframe') # 해당 장소 리뷰 크롤링이 끝나면 프레임 전환
         current_page = driver.page_source
         soup = BeautifulSoup(current_page, 'html.parser') #html 로드
-        if current_page_cnt == 1 and ad_cnt > 0:
-            place_list = driver.find_element_by_xpath(f'/html/body/div[3]/div/div/div[1]/ul/li[{i+1+ad_cnt}]/div[2]/a[1]')
-        else:    
-            place_list = driver.find_element_by_xpath(f'/html/body/div[3]/div/div/div[1]/ul/li[{i+1}]/div[2]/a[1]')  # 해당 장소의 xpath 경로
+        place_list = driver.find_element_by_xpath(f'/html/body/div[3]/div/div/div[1]/ul/li[{i+1}]/div[2]/a[1]')  # 해당 장소의 xpath 경로
         place_name = soup.select_one(f'li:nth-child({i+1}) > div._3ZU00._1rBq3 > a:nth-child(1) > div > div > span').text
         place_list.click() #클릭
         time.sleep(2) #페이지 로드를 기다림
@@ -132,6 +129,7 @@ for i in range(page_cnt):
         next_page = driver.find_element_by_css_selector('#app-root > div > div > div._2ky45 > a:nth-child(7) > svg') #페이지 넘기기
         next_page.click()
         current_page_cnt += 1 
+
 
 df = pd.DataFrame(review_data, columns = ['장소명', '리뷰', '별점']) #데이터 프레임으로 만들어 엑셀에 저장
 df.to_csv('place_review.csv', encoding='utf-8-sig', index=False)
