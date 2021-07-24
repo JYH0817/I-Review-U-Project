@@ -48,7 +48,6 @@ current_page = driver.page_source
 soup = BeautifulSoup(current_page, 'html.parser') #html 로드
 if len(soup.select('#app-root > div > div > div._2ky45 > a')) == 7: #페이지 수 체크
     while True:
-        print(driver.find_element_by_css_selector('#app-root > div > div > div._2ky45 > a:nth-child(4)').text)
         current_page = driver.page_source
         soup = BeautifulSoup(current_page, 'html.parser') #html 로드
         if page_cnt >= 3 and int(driver.find_element_by_css_selector('#app-root > div > div > div._2ky45 > a:nth-child(4)').text) == page_cnt:
@@ -67,9 +66,8 @@ driver.switch_to_frame('searchIframe')
 scrollDown(driver) #스크롤 내려서 모두 로드
 soup = BeautifulSoup(current_page, 'html.parser') #html 로드
 list_cnt = len(soup.select('#_pcmap_list_scroll_container > ul > li'))
-current_page = 0
+current_page_cnt = 0
 current_place = 0
-
 driver.switch_to_default_content()
 for i in range(page_cnt):    
     for i in range(list_cnt): #페이지당 장소 최대 50개
@@ -124,7 +122,7 @@ for i in range(page_cnt):
                         time.sleep(0.1)           
         text_review_exists = 0  #다음 장소를 위해 글 리뷰 여부 초기화
         current_place += 1
-        current_page += 1                
+        current_page_cnt += 1                
         driver.switch_to_default_content() #프레임 초기화
         time.sleep(2)
     if list_cnt >= 50 and current_place == list_cnt and current_page < page_cnt:
