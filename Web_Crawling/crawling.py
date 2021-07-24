@@ -69,7 +69,7 @@ for i in range(page_cnt):
     scrollDown(driver) #스크롤 내려서 모두 로드
     soup = BeautifulSoup(current_page, 'html.parser') #html 로드
     list_cnt = len(soup.select('#_pcmap_list_scroll_container > ul > li'))
-    current_place = 0
+    current_place = 0 + ad_cnt
     driver.switch_to_default_content()   
     for i in range(ad_cnt, list_cnt): #페이지당 장소 최대 50개
         driver.switch_to_frame('searchIframe') # 해당 장소 리뷰 크롤링이 끝나면 프레임 전환
