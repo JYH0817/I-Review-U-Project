@@ -66,7 +66,7 @@ driver.switch_to_frame('searchIframe')
 scrollDown(driver) #스크롤 내려서 모두 로드
 soup = BeautifulSoup(current_page, 'html.parser') #html 로드
 list_cnt = len(soup.select('#_pcmap_list_scroll_container > ul > li'))
-current_page_cnt = 0
+current_page_cnt = 1
 current_place = 0
 driver.switch_to_default_content()
 for i in range(page_cnt):    
