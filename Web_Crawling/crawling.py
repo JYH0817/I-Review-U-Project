@@ -121,7 +121,8 @@ for i in range(page_cnt):
         driver.switch_to_default_content() #프레임 초기화
         time.sleep(2)
     df = pd.DataFrame(review_data, columns = ['장소명', '리뷰', '별점']) #데이터 프레임으로 만들어 엑셀에 저장
-    df.to_csv(f'place_review{i}.csv', encoding='utf-8-sig', index=False)    
+    df.to_csv(f'place_review{i}.csv', encoding='utf-8-sig', index=False)
+driver.switch_to_frame('searchIframe')        
 next_page = driver.find_element_by_css_selector('#app-root > div > div > div._2ky45 > a:nth-child(7) > svg') #페이지 넘기기
 next_page.click()
 current_page_cnt += 1 
