@@ -16,20 +16,8 @@ search_key = '성남 스터디카페' #원하는 검색어
 review_data = []
 
 def scrollDown(driver, scrollDown_num=10): #스크롤 내리는 코드
-    url = driver.current_url
-    while True:
-        try:
-            body = driver.find_element_by_css_selector('body')
-        except:
-            driver.refresh()
-            time.sleep(1)
-        body.click()
-        time.sleep(0.1)
-        if url == driver.current_url:
-            break
-        else:
-            driver.execute_script("window.history.go(-1)")
-    time.sleep(0.1)
+    body = driver.find_element_by_css_selector('body')
+    body.click()
     for i in range(100):
         time.sleep(0.1)
         body.send_keys(Keys.PAGE_DOWN)
@@ -65,7 +53,9 @@ time.sleep(3)
 current_page_cnt = 1
 for i in range(page_cnt):
     driver.switch_to_frame('searchIframe')
-    ad_cnt = len(driver.find_elements_by_partial_link_text('광고'))
+    ad_cnt = len(driver.find_elements_by_partial_link_text('광고'))# 광고가 붙어있는 리스트는 중복되므로 건너뛰기 위해 카운트
+    body = driver.find_element_by_css_selector('body')
+    body.click()
     scrollDown(driver) #스크롤 내려서 모두 로드
     soup = BeautifulSoup(current_page, 'html.parser') #html 로드
     list_cnt = len(soup.select('#_pcmap_list_scroll_container > ul > li'))
@@ -103,6 +93,8 @@ for i in range(page_cnt):
                     more_cnt =  review_cnt//10 - 1
                 else:
                     more_cnt =  review_cnt//10
+                body = driver.find_element_by_css_selector('body')
+                body.click()    
                 for j in range(more_cnt):  #더보기 개수 만큼 스크롤 내리고 클릭        
                     scrollDown(driver)
                     more_review = driver.find_element_by_class_name('_3iTUo') #버튼 경로
@@ -125,7 +117,7 @@ for i in range(page_cnt):
         current_place += 1               
         driver.switch_to_default_content() #프레임 초기화
         time.sleep(2)
-    if list_cnt >= 50 and current_place == list_cnt and current_page_cnt < page_cnt:
+    if current_page_cnt < page_cnt:
         next_page = driver.find_element_by_css_selector('#app-root > div > div > div._2ky45 > a:nth-child(7) > svg') #페이지 넘기기
         next_page.click()
         current_page_cnt += 1 
