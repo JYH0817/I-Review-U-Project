@@ -131,7 +131,3 @@ current_page_cnt += 1
 df = pd.DataFrame(review_data, columns = ['장소명', '리뷰', '별점']) #데이터 프레임으로 만들어 엑셀에 저장
 df.to_csv('place_review.csv', encoding='utf-8-sig', index=False)
 
-'''
-time.sleep()은 너무 빠른 크롤링으로 인해 크롤링이 막히거나 페이지 로드가 완전히 되지 않아 데이터를 추출하지 못하고 중간에 종료되는걸 막기 위함
-페이지 넘기는 코드 추가 예정
-'''
