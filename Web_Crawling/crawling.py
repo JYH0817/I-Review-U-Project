@@ -46,10 +46,9 @@ if len(soup.select('#app-root > div > div > div._2ky45 > a')) == 7: #페이지 �
         next_page.click()
         time.sleep(1)
 else:
-    page_cnt = len(soup.select('#app-root > div > div > div._2ky45 > a')) - 2          
-        
+    page_cnt = len(soup.select('#app-root > div > div > div._2ky45 > a')) - 2                
 driver.get(url) #페이지 체크 후 다시 원래 페이지로
-time.sleep(3)
+time.sleep(5)
 current_page_cnt = 1
 for i in range(page_cnt):
     driver.switch_to_frame('searchIframe')
@@ -57,9 +56,13 @@ for i in range(page_cnt):
     body = driver.find_element_by_css_selector('body')
     body.click()
     scrollDown(driver) #스크롤 내려서 모두 로드
+    time.sleep(3)
+    current_page = driver.page_source
     soup = BeautifulSoup(current_page, 'html.parser') #html 로드
     list_cnt = len(soup.select('#_pcmap_list_scroll_container > ul > li'))
     current_place = 0 + ad_cnt
+    print(page_cnt)
+    print(list_cnt)  
     driver.switch_to_default_content()   
     for i in range(ad_cnt, list_cnt): #페이지당 장소 최대 50개
         driver.switch_to_frame('searchIframe') # 해당 장소 리뷰 크롤링이 끝나면 프레임 전환
@@ -98,7 +101,7 @@ for i in range(page_cnt):
                 for j in range(more_cnt):  #더보기 개수 만큼 스크롤 내리고 클릭        
                     scrollDown(driver)
                     more_review = driver.find_element_by_class_name('_3iTUo') #버튼 경로
-                    more_review.click()
+                    more_review.click()                    
                 scrollDown(driver)    
                 current_page = driver.page_source
                 soup = BeautifulSoup(current_page, 'html.parser') #모든 리뷰를 로드                  
@@ -117,10 +120,9 @@ for i in range(page_cnt):
         current_place += 1               
         driver.switch_to_default_content() #프레임 초기화
         time.sleep(2)
-    if current_page_cnt < page_cnt:
-        next_page = driver.find_element_by_css_selector('#app-root > div > div > div._2ky45 > a:nth-child(7) > svg') #페이지 넘기기
-        next_page.click()
-        current_page_cnt += 1 
+next_page = driver.find_element_by_css_selector('#app-root > div > div > div._2ky45 > a:nth-child(7) > svg') #페이지 넘기기
+next_page.click()
+current_page_cnt += 1 
 
 
 df = pd.DataFrame(review_data, columns = ['장소명', '리뷰', '별점']) #데이터 프레임으로 만들어 엑셀에 저장
