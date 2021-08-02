@@ -101,11 +101,9 @@ def crawling(search_key, search_cnt):
         driver.switch_to_default_content() #프레임 초기화
         time.sleep(2)
         
-
-
-
     df = pd.DataFrame(review_data, columns = ['장소명', '리뷰', '별점']) #데이터 프레임으로 만들어 엑셀에 저장
     df.to_csv('place_review.csv', encoding='utf-8-sig', index=False)
+    driver.close()
 
 
 
