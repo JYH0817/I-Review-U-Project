@@ -9,7 +9,7 @@ from selenium.webdriver.common.keys import Keys
 from PyQt5 import QtCore, QtWidgets
 
 
-def crawling(search_key, search_cnt):
+def crawling(search_key, search_cnt, file_name):
     chrome_options = Options()
     chrome_options.add_experimental_option("detach", True)
     chrome_options.add_experimental_option("excludeSwitches", ["enable-logging"])
@@ -102,7 +102,7 @@ def crawling(search_key, search_cnt):
         time.sleep(2)
         
     df = pd.DataFrame(review_data, columns = ['장소명', '리뷰', '별점']) #데이터 프레임으로 만들어 엑셀에 저장
-    df.to_csv('place_review.csv', encoding='utf-8-sig', index=False)
+    df.to_csv(file_name + '.csv', encoding='utf-8-sig', index=False)
     driver.close()
 
 
@@ -117,6 +117,9 @@ class Ui_Dialog(object):
         self.lineEdit_2 = QtWidgets.QLineEdit(Dialog)
         self.lineEdit_2.setGeometry(QtCore.QRect(140, 100, 201, 20))
         self.lineEdit_2.setObjectName("lineEdit_2")
+        self.lineEdit_3 = QtWidgets.QLineEdit(Dialog)
+        self.lineEdit_3.setGeometry(QtCore.QRect(140, 140, 201, 20))
+        self.lineEdit_3.setObjectName("lineEdit_2")
         self.pushButton = QtWidgets.QPushButton(Dialog)
         self.pushButton.setGeometry(QtCore.QRect(160, 200, 75, 23))
         self.pushButton.setObjectName("pushButton")
@@ -129,6 +132,10 @@ class Ui_Dialog(object):
         self.label_2.setGeometry(QtCore.QRect(50, 100, 56, 12))
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
         self.label_2.setObjectName("label_2")
+        self.label_3 = QtWidgets.QLabel(Dialog)
+        self.label_3.setGeometry(QtCore.QRect(50, 140, 56, 12))
+        self.label_3.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_3.setObjectName("label_2")
 
 
         self.retranslateUi(Dialog)
@@ -140,12 +147,15 @@ class Ui_Dialog(object):
         self.pushButton.setText(_translate("Dialog", "크롤링 시작"))
         self.label.setText(_translate("Dialog", "장소명"))
         self.label_2.setText(_translate("Dialog", "장소 수"))
+        self.label_3.setText(_translate("Dialog", "파일명"))
+        self.lineEdit_3.setText(_translate("Dialog", "확장자 제외"))
    
 
     def button_clicked(self):
         search_key = self.lineEdit.text()
         search_cnt = int(self.lineEdit_2.text())
-        crawling(search_key, search_cnt)
+        file_name = self.lineEdit_3.text()
+        crawling(search_key, search_cnt, file_name)
 
 
 if __name__ == "__main__":
