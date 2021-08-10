@@ -1,7 +1,7 @@
 # I Review U (알리뷰) Project
-졸업작품 구현 및 스터디
+### 리뷰 분석을 통해 소비자에게 새로운 가치와 인사이트를 제공
 
-Proposal Presentation
+## Proposal Presentation
 
 [![Proposal Presentation](http://img.youtube.com/vi/Se5rlq29gIY/0.jpg)](https://youtu.be/Se5rlq29gIY) 
 ## Memeber
