@@ -5,7 +5,7 @@
 
 [![Proposal Presentation](http://img.youtube.com/vi/Se5rlq29gIY/0.jpg)](https://youtu.be/Se5rlq29gIY) 
 ## Memeber
-김태희, 안세훈, 정영훈
+[김태희](https://github.com/taehui530), [안세훈](https://github.com/ashpurple), [정영훈](https://github.com/JYH0817)
 
 ## Plan
 여름방학
