@@ -5,7 +5,7 @@
 
 [![Proposal Presentation](http://img.youtube.com/vi/Se5rlq29gIY/0.jpg)](https://youtu.be/Se5rlq29gIY) 
 ## Memeber
-[김태희](https://github.com/taehui530), [안세훈](https://github.com/ashpurple), [정영훈](https://github.com/JYH0817)
+[김태희](https://github.com/taehui530), [안세훈](https://github.com/ashpurple), [정영훈](https://github.com/JYH0817), 고준호
 
 ## Plan
 여름방학
@@ -14,6 +14,7 @@
 
 3학년 2학기
 - 주 1회(화요일) 교수님 정기 미팅
+- 주 1회 수요일 조원 미팅
 
 ## Procedure
 
