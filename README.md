@@ -5,7 +5,7 @@
 
 [![Proposal Presentation](http://img.youtube.com/vi/Se5rlq29gIY/0.jpg)](https://youtu.be/Se5rlq29gIY) 
 ## Memeber
-[김태희](https://github.com/taehui530), [안세훈](https://github.com/ashpurple), [정영훈](https://github.com/JYH0817), 고준호
+[김태희](https://github.com/taehui530), [안세훈](https://github.com/ashpurple), [정영훈](https://github.com/JYH0817), [고준호](https://github.com/JunhoGo)
 
 ## Plan
 3학년 1학기
@@ -19,9 +19,9 @@
 - 격주로 스터디 내용 및 구현 사항 문서화
 
 3학년 2학기
-- 목표: 구현
-- 주 1회(화요일) 교수님 정기 미팅
-- 주 1회 수요일 조원 미팅
+- 목표: 프로토 타입 구현
+- 격주 교수님 정기 미팅
+- 주 1회 조원 미팅
 
 ## Procedure
 
