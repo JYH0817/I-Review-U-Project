@@ -80,7 +80,7 @@ def crawling(search_key, search_cnt, file_name):
             h2_tag = soup.select('h2.place_section_header') 
             text_review_exists = 0
             for n in range(len(h2_tag)): #글 리뷰가 있는지 확인
-                if ('사진 리뷰' not in h2_tag[n] and '별점 리뷰' not in h2_tag[n]): #사진이나 별점리뷰만 존재하면 다음 장소로 넘어감
+                if ('리뷰' in h2_tag[n]): #사진리뷰만 존재하면 다음 장소로 넘어감
                     text_review_exists = 1
                     break   
             if text_review_exists == 1:
@@ -105,14 +105,15 @@ def crawling(search_key, search_cnt, file_name):
                 current_page = driver.page_source
                 soup = BeautifulSoup(current_page, 'html.parser') #모든 리뷰를 로드                  
                 for j in range(review_cnt):
-                    if soup.select_one(f'li:nth-child({j+1}) > div._1Z_GL > div.PVBo8 > a > span') != None: #긴 리뷰는 펼치기 버튼이 있으므로 찾아서 누르기
-                        if(len(soup.select(f'li:nth-child({j+1}) > div._1Z_GL > div.PVBo8 > a > span'))) == 2:
-                            driver.find_element_by_css_selector(f'li:nth-child({j+1}) > div._1Z_GL > div.PVBo8 > a').send_keys(Keys.ENTER) #클릭 함수가 안될 경우 엔터 키를 보냄 
+                    if soup.select_one(f'li:nth-child({j+1}) > div._3vfQ6 > a > span') != None: #긴 리뷰는 펼치기 버튼이 있으므로 찾아서 누르기
+                        if(len(soup.select(f'li:nth-child({j+1}) > div._3vfQ6 > a > span'))) == 2:
+                            continue
+                            driver.find_element_by_css_selector(f'li:nth-child({j+1}) > > div._3vfQ6 > a').click() #클릭 함수가 안될 경우 엔터 키를 보냄 
                             current_page = driver.page_source
                             soup = BeautifulSoup(current_page, 'html.parser')  #리뷰를 펼치고 다시 로드                      
                             time.sleep(1)                                         
-                        review_text = soup.select_one(f'li:nth-child({j+1}) > div._1Z_GL > div.PVBo8 > a > span').text.strip() #텍스트 추출 
-                        star_rate = soup.select_one(f'li:nth-child({j+1}) > div._1Z_GL > div._1ZcDn > div._3D_HC > span._2tObC').text #별점 추출
+                        review_text = soup.select_one(f'li:nth-child({j+1}) > div._3vfQ6 > a > span').text.strip() #텍스트 추출 
+                        star_rate = soup.select_one(f'li:nth-child({j+1}) > div._3-LAD > span._1fvo3.Sv1wj > em').text #별점 추출
                         '''review_data.append((place_name, review_text, star_rate)) #리스트로 저장'''
                         review_obj = {
                             'place' : place_name,
