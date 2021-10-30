@@ -112,7 +112,10 @@ def crawling(search_key, search_cnt, file_name):
                             current_page = driver.page_source
                             soup = BeautifulSoup(current_page, 'html.parser')  #리뷰를 펼치고 다시 로드                      
                             time.sleep(1)                                         
-                        review_text = soup.select_one(f'li:nth-child({j+1}) > div._3vfQ6 > a > span').text.strip() #텍스트 추출 
+                        review_text = soup.select_one(f'li:nth-child({j+1}) > div._3vfQ6 > a > span').text.strip() #텍스트 추출
+                        star_rate = ''
+                        if  soup.select_one(f'li:nth-child({j+1}) > div._3-LAD > span._1fvo3.Sv1wj > em') == None:
+                            continue
                         star_rate = soup.select_one(f'li:nth-child({j+1}) > div._3-LAD > span._1fvo3.Sv1wj > em').text #별점 추출
                         '''review_data.append((place_name, review_text, star_rate)) #리스트로 저장'''
                         review_obj = {
