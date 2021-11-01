@@ -24,7 +24,7 @@
 - 주 1회 조원 미팅
 
 ## Framework
-Flutter, Django, Pororo
+Flutter, Django, Pororo(kakao brain)
 
 ## Procedure
 
