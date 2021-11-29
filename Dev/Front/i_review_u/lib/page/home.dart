@@ -133,7 +133,7 @@ class _HomeState extends State<Home> {
     );
   }
 
-  /*_makeDataList(List<Map<String, dynamic>> datas) {
+  _makeDataList(List<Post> datas) {
     // 매장 데이터
     return ListView.separated(
       padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -152,13 +152,13 @@ class _HomeState extends State<Home> {
                     crossAxisAlignment: CrossAxisAlignment.start, // 왼쪽 정렬
                     children: [
                       Text(
-                        datas[index]["building_name"].toString(),
+                       datas[index].buildingName.toString(),
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(fontSize: 15),
                       ),
                       SizedBox(height: 5),
                       Text(
-                        datas[index]["building_loc"].toString(),
+                        datas[index].buildingLoc.toString(),
                         style: TextStyle(
                             fontSize: 12, color: Colors.black.withOpacity(0.3)),
                       ),
@@ -177,7 +177,7 @@ class _HomeState extends State<Home> {
       },
       itemCount: datas.length,
     );
-  }*/
+  }
 
   // 바디 (리스트)
   Widget _bodyWidget() {
@@ -197,8 +197,8 @@ class _HomeState extends State<Home> {
           }
           if (snapshot.hasData) {
             // 데이터 있을 때만
-           // return _makeDataList(snapshot.data);
-           return ListView.builder(
+           return _makeDataList(snapshot.data);
+           /*return ListView.builder(
              itemCount : snapshot.data.length,
              itemBuilder : (context,index){
                Post post = snapshot.data[index];
@@ -208,7 +208,7 @@ class _HomeState extends State<Home> {
                  )
                );
              },
-           );
+           );*/
         }
           return Center(child: Text("해당 지역에 데이터가 없습니다"));
         });
