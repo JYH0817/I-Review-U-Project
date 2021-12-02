@@ -10,6 +10,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  
   late String currentLocation;
   late ContentsRepository contentsRepository;
   final Map<String, String> locationTypeToString = {
@@ -22,7 +23,6 @@ class _HomeState extends State<Home> {
     super.initState();
     currentLocation = "seongnam";
     contentsRepository = ContentsRepository();
-    
   }
 
   // 앱 바
@@ -41,7 +41,7 @@ class _HomeState extends State<Home> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
               1),
-            onSelected: (String location){ // 클릭 이벤트
+            onSelected: (String location){ // 선택 이벤트
               setState(() {
                 currentLocation = location;
               });
@@ -64,7 +64,10 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.pink,
         elevation: 1,
         actions: [ // 상단 아이콘
-          IconButton( onPressed: (){}, icon: Icon(Icons.search),), // 검색
+          IconButton( onPressed: () { 
+            // 검색 버튼
+            print("search button click");
+          }, icon: Icon(Icons.search),), 
           IconButton( onPressed: (){}, icon: Icon(Icons.tune),), // 기타
           IconButton( // 알림
             onPressed: (){}, 
@@ -185,4 +188,10 @@ class _HomeState extends State<Home> {
       body: _bodyWidget(),
     );
   }
+}
+
+@override
+Widget build(BuildContext context) {
+  // TODO: implement build
+  throw UnimplementedError();
 }
