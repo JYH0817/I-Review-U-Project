@@ -29,9 +29,11 @@ def crawling(search_key, search_cnt, file_name):
     def scrollDown(driver, scrollDown_num=10): #스크롤 내리는 코드
         body = driver.find_element_by_css_selector('body')
         body.click()
-        for i in range(100):
-            time.sleep(0.1)
+        for i in range(50):
+            time.sleep(0.01)
             body.send_keys(Keys.PAGE_DOWN)
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight)")
+
 
     url = "https://map.naver.com/v5/search/" + search_key #네이버 플레이스 검색
     driverPath = "chromedriver.exe" #절대경로
@@ -60,14 +62,14 @@ def crawling(search_key, search_cnt, file_name):
         place_list = driver.find_element_by_xpath(f'/html/body/div[3]/div/div/div[1]/ul/li[{i+1}]/div[2]/a[1]')  # 해당 장소의 xpath 경로
         place_name = soup.select_one(f'li:nth-child({i+1}) > div._3ZU00._1rBq3 > a:nth-child(1) > div > div > span').text
         place_location = soup.select_one(f'li:nth-child({i+1}) > div._3ZU00._1rBq3 > div > div > span > a > span._3hCbH').text
-        place_time = soup.select_one(f'li:nth-child({i+1}) > div._3ZU00._1rBq3 > a:nth-child(3) > div > span').text
+        #place_time = soup.select_one(f'li:nth-child({i+1}) > div._3ZU00._1rBq3 > a:nth-child(3) > div > span').text
         place_list.click() #클릭
         time.sleep(2) #페이지 로드를 기다림
         driver.switch_to_default_content() 
         driver.switch_to_frame('entryIframe') # 장소의 상세한 정보를 나타내는 두번째 프레임
         current_page = driver.page_source
         soup = BeautifulSoup(current_page, 'html.parser') #html 로드
-        call_number = soup.select_one(f'div > ul > li._1M_Iz._3xPmJ > div > span._3ZA0S').text
+        call_number = soup.select_one(f'div > ul > li._1M_Iz._3xPmJ > div > span._3ZA0S').text 
         review_check = soup.select_one('#app-root > div > div > div.place_detail_wrapper > div.place_section.no_margin.GCwOh > div > div > div._3XpyR._2z4r0 > div._1kUrA > span > a').text
         #방문자 리뷰가 존재하는지 체크(존재하지 않거나 블로그리뷰만 있으면 다음 장소로 넘어감)
         if '방문자리뷰' in review_check:
@@ -88,7 +90,7 @@ def crawling(search_key, search_cnt, file_name):
                             'place' : place_name,
                             'location' : place_location,
                             'call' : call_number,
-                            'time' : place_time
+                            #'time' : place_time
                         }
                 building_dict.append(building_obj)
                 if review_cnt % 10 == 0: #더보기당 리뷰 10개
@@ -112,7 +114,10 @@ def crawling(search_key, search_cnt, file_name):
                             current_page = driver.page_source
                             soup = BeautifulSoup(current_page, 'html.parser')  #리뷰를 펼치고 다시 로드                      
                             time.sleep(1)                                         
-                        review_text = soup.select_one(f'li:nth-child({j+1}) > div._3vfQ6 > a > span').text.strip() #텍스트 추출 
+                        review_text = soup.select_one(f'li:nth-child({j+1}) > div._3vfQ6 > a > span').text.strip() #텍스트 추출
+                        star_rate = ''
+                        if  soup.select_one(f'li:nth-child({j+1}) > div._3-LAD > span._1fvo3.Sv1wj > em') == None:
+                            continue
                         star_rate = soup.select_one(f'li:nth-child({j+1}) > div._3-LAD > span._1fvo3.Sv1wj > em').text #별점 추출
                         '''review_data.append((place_name, review_text, star_rate)) #리스트로 저장'''
                         review_obj = {
@@ -123,7 +128,8 @@ def crawling(search_key, search_cnt, file_name):
                         review_dict.append(review_obj)                      
                         time.sleep(0.1)           
         text_review_exists = 0  #다음 장소를 위해 글 리뷰 여부 초기화
-        current_place += 1               
+        current_place += 1
+        print(current_place)               
         driver.switch_to_default_content() #프레임 초기화
         time.sleep(2)
         
@@ -131,7 +137,8 @@ def crawling(search_key, search_cnt, file_name):
     df.to_csv(file_name + '.csv', encoding='utf-8-sig', index=False)'''
     if __name__=='__main__':
         for item in building_dict:
-            BuildingData(building_name = item['place'], building_loc = item['location'], building_call = item['call'], building_time = item['time']).save()
+            BuildingData(building_name = item['place'], building_loc = item['location'], building_call = item['call']).save()
+            #BuildingData(building_name = item['place'], building_loc = item['location'], building_call = item['call'], building_time = item['time']).save()
         for item in review_dict:
             ReviewData(building_name = item['place'], review_content = item['review'], star_num = item['rate']).save()
     driver.close()
