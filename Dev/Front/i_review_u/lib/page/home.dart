@@ -8,7 +8,7 @@ import 'dart:convert';
 //https://cors-anywhere.herokuapp.com/
 Future<List<Post>> getData() async {
   final response = await http.get(
-      Uri.parse("http://192.168.0.9:8000/api/buildingdata/"),
+      Uri.parse("http://127.0.0.1:8000/api/buildingdata/"),
       headers: {"Access-Control-Allow-Origin": "*"});
   if (response.statusCode == 200) {
     List list = (json.decode(utf8.decode(response.bodyBytes)));
@@ -51,19 +51,13 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-<<<<<<< HEAD
-  
-  late String currentLocation;
-  late ContentsRepository contentsRepository;
-=======
   Future<List<Post>> postList;
   String currentLocation;
   ContentsRepository contentsRepository;
->>>>>>> a6aa68f6a028cb86d297ed86669b19baf31a9f9f
   final Map<String, String> locationTypeToString = {
     "seongnam": "성남시 스터디카페",
-    "songpa": "송파구 스터디카페",
-    "gangnam": "강남구 스터디카페",
+    "chungwon": "중원구 스터디카페",
+    "bundang": "분당구 스터디카페",
   };
 
   @override
@@ -71,11 +65,7 @@ class _HomeState extends State<Home> {
     super.initState();
     postList = getData();
     currentLocation = "seongnam";
-<<<<<<< HEAD
-    contentsRepository = ContentsRepository();
-=======
     //contentsRepository = ContentsRepository();
->>>>>>> a6aa68f6a028cb86d297ed86669b19baf31a9f9f
   }
 
   // 앱 바
@@ -97,38 +87,6 @@ class _HomeState extends State<Home> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
               1),
-<<<<<<< HEAD
-            onSelected: (String location){ // 선택 이벤트
-              setState(() {
-                currentLocation = location;
-              });
-            },
-            itemBuilder: (BuildContext context){ // 지역 리스트
-              return [
-                PopupMenuItem(value: "seongnam", child:Text("성남시")),
-                PopupMenuItem(value: "songpa", child:Text("송파구")),
-                PopupMenuItem(value: "gangnam", child:Text("강남구")),
-              ];
-            },
-            child: Row(
-              children: [ // 지역 선택
-                Text(locationTypeToString[currentLocation].toString()),
-                Icon(Icons.arrow_drop_down),
-              ],
-            ),
-          ),
-        ),
-        backgroundColor: Colors.pink,
-        elevation: 1,
-        actions: [ // 상단 아이콘
-          IconButton( onPressed: () { 
-            // 검색 버튼
-            print("search button click");
-          }, icon: Icon(Icons.search),), 
-          IconButton( onPressed: (){}, icon: Icon(Icons.tune),), // 기타
-          IconButton( // 알림
-            onPressed: (){}, 
-=======
           onSelected: (String location) {
             // 클릭 이벤트
             setState(() {
@@ -138,9 +96,9 @@ class _HomeState extends State<Home> {
           itemBuilder: (BuildContext context) {
             // 지역 리스트
             return [
-              PopupMenuItem(value: "seongnam", child: Text("성남시")),
-              PopupMenuItem(value: "songpa", child: Text("송파구")),
-              PopupMenuItem(value: "gangnam", child: Text("강남구")),
+              PopupMenuItem(value: "seongnam", child: Text("수정구")),
+              PopupMenuItem(value: "chungwon", child: Text("중원구")),
+              PopupMenuItem(value: "bundang", child: Text("분당구")),
             ];
           },
           child: Row(
@@ -167,7 +125,6 @@ class _HomeState extends State<Home> {
         IconButton(
             // 알림
             onPressed: () {},
->>>>>>> a6aa68f6a028cb86d297ed86669b19baf31a9f9f
             icon: SvgPicture.asset(
               "assets/svg/bell.svg",
               width: 22,

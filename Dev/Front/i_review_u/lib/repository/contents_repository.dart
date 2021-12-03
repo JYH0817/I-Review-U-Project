@@ -58,25 +58,25 @@ class ContentsRepository{
         "likes" : "2"
       },
     ],
-    "songpa" : [
+    "chungwon" : [
       {
         "image" : "assets/images/sample.jpg",
         "title" : "스터디 카페 1",
-        "location" : "서울시 송파구 위례동",
+        "location" : "경기도 성남시 중원구",
         "star" : "4.5",
         "likes" : "2"
       },
       {
         "image" : "assets/images/sample.jpg",
         "title" : "스터디 카페 2",
-        "location" : "서울시 송파구 위례동",
+        "location" : "경기도 성남시 중원구",
         "star" : "3",
         "likes" : "5"
       },
       {
         "image" : "assets/images/sample.jpg",
         "title" : "스터디 카페 3",
-        "location" : "서울시 송파구 위례동",
+        "location" : "경기도 성남시 중원구",
         "star" : "1",
         "likes" : "1"
       },
