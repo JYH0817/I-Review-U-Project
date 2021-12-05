@@ -1,8 +1,9 @@
 from django.db import models
 import uuid
-
+from .apps import PororoConfig
 # Create your models here.
 from django.utils.text import slugify
+from numpy import positive
 
 def generate_unique_slug(klass, field):
     origin_slug = slugify(field, allow_unicode=True)
@@ -43,3 +44,4 @@ class ReviewData(models.Model):
     building_name = models.CharField(max_length=50)
     review_content = models.TextField()
     star_num = models.FloatField()
+    positivity = models.TextField()

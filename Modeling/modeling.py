@@ -9,7 +9,7 @@ df = pd.read_csv('sample.csv')
 # sampling
 total_review = df[['리뷰']]
 sample_review = total_review.iloc[[0, 1, 119, 124, 200, 205, 229]] # sample review's row
-
+print(sample_review)
 # pororo 모델 생성
 sa = Pororo(task="sentiment", model="brainbert.base.ko.shopping", lang="ko") # 긍부정
 #rating = Pororo(task="review", lang="ko") # 점수 예측
@@ -42,6 +42,7 @@ for row in sample_review.iterrows():
     print(zsl(review, ["음식","온도","청결","분위기","친절","만족도","가격"]))
 
     print()
+ 
     
 
 

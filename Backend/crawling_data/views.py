@@ -7,6 +7,7 @@ from rest_framework.views import APIView
 from .serializers import ReviewSerializer
 from .serializers import BuildingSerializer
 from django.shortcuts import render, get_object_or_404
+from .apps import PororoConfig
 
 class BuildingInfoAPI(APIView):
     def get(self, request):
@@ -17,4 +18,5 @@ class ReviewListAPI(APIView):
     def get(self, request, slug):
         queryset = ReviewData.objects.all()
         serializer = ReviewSerializer(queryset, many=True)
-        return Response(serializer.data)
+        new_review = PororoConfig.getPositivity(serializer.data)
+        return Response(new_review)

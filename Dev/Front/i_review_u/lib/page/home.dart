@@ -8,7 +8,8 @@ import 'dart:convert';
 //https://cors-anywhere.herokuapp.com/
 Future<List<Post>> getData() async {
   final response = await http.get(
-      Uri.parse("http://127.0.0.1:8000/api/buildingdata/"),
+    //http://192.168.55.233:8000/api/buildingdata/ (세훈)
+      Uri.parse("http://192.168.55.233:8000/api/buildingdata/"),
       headers: {"Access-Control-Allow-Origin": "*"});
   if (response.statusCode == 200) {
     List list = (json.decode(utf8.decode(response.bodyBytes)));

@@ -140,7 +140,7 @@ def crawling(search_key, search_cnt, file_name):
             BuildingData(building_name = item['place'], building_loc = item['location'], building_call = item['call']).save()
             #BuildingData(building_name = item['place'], building_loc = item['location'], building_call = item['call'], building_time = item['time']).save()
         for item in review_dict:
-            ReviewData(building_name = item['place'], review_content = item['review'], star_num = item['rate']).save()
+            ReviewData(building_name = item['place'], review_content = item['review'], star_num = item['rate'], positivity = item['review']).save()
     driver.close()
 
 
