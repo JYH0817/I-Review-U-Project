@@ -1,3 +1,4 @@
+// @dart=2.9
 import 'package:flutter/material.dart';
 import 'page/app.dart';
 import 'package:get/get.dart';

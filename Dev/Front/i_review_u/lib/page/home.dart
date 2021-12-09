@@ -10,7 +10,7 @@ import 'info.dart';
 
 Future<List<Post>> getData() async {
   final response = await http.get(
-      Uri.parse("http://192.168.0.9:8000/api/buildingdata/"),
+      Uri.parse("http://127.0.0.1:8000/api/buildingdata/"),
       headers: {"Access-Control-Allow-Origin": "*"});
   if (response.statusCode == 200) {
     List list = (json.decode(utf8.decode(response.bodyBytes)));
@@ -51,8 +51,8 @@ class _HomeState extends State<Home> {
   ContentsRepository contentsRepository;
   final Map<String, String> locationTypeToString = {
     "seongnam": "성남시 스터디카페",
-    "songpa": "송파구 스터디카페",
-    "gangnam": "강남구 스터디카페",
+    "chungwon": "중원구 스터디카페",
+    "bundang": "분당구 스터디카페",
   };
 
   @override
@@ -91,9 +91,9 @@ class _HomeState extends State<Home> {
           itemBuilder: (BuildContext context) {
             // 지역 리스트
             return [
-              PopupMenuItem(value: "seongnam", child: Text("성남시")),
-              PopupMenuItem(value: "songpa", child: Text("송파구")),
-              PopupMenuItem(value: "gangnam", child: Text("강남구")),
+              PopupMenuItem(value: "seongnam", child: Text("수정구")),
+              PopupMenuItem(value: "chungwon", child: Text("중원구")),
+              PopupMenuItem(value: "bundang", child: Text("분당구")),
             ];
           },
           child: Row(
@@ -222,4 +222,10 @@ class _HomeState extends State<Home> {
       body: _bodyWidget(),
     );
   }
+}
+
+@override
+Widget build(BuildContext context) {
+  // TODO: implement build
+  throw UnimplementedError();
 }

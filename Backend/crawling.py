@@ -59,9 +59,9 @@ def crawling(search_key, search_cnt, file_name):
         current_page = driver.page_source
         soup = BeautifulSoup(current_page, 'html.parser') #html 로드
         place_list = driver.find_element_by_xpath(f'/html/body/div[3]/div/div/div[1]/ul/li[{i+1}]/div[2]/a[1]')  # 해당 장소의 xpath 경로
-        place_name = soup.select_one(f'li:nth-child({i+1}) > div._3ZU00._1rBq3 > a:nth-child(1) > div > div > span').text
-        place_location = soup.select_one(f'li:nth-child({i+1}) > div._3ZU00._1rBq3 > div > div > span > a > span._3hCbH').text
-        #place_time = soup.select_one(f'li:nth-child({i+1}) > div._3ZU00._1rBq3 > a:nth-child(3) > div > span').text
+        place_name = soup.select_one(f'li:nth-of-type({i+1}) > div._3ZU00._1rBq3 > a:nth-of-type(1) > div > div > span').text
+        place_location = soup.select_one(f'li:nth-of-type({i+1}) > div._3ZU00._1rBq3 > div > div > span > a > span._3hCbH').text
+        #place_time = soup.select_one(f'li:nth-of-type({i+1}) > div._3ZU00._1rBq3 > a:nth-of-type(3) > div > span').text
         place_list.click() #클릭
         time.sleep(2) #페이지 로드를 기다림
         driver.switch_to_default_content() 
@@ -106,19 +106,24 @@ def crawling(search_key, search_cnt, file_name):
                 current_page = driver.page_source
                 soup = BeautifulSoup(current_page, 'html.parser') #모든 리뷰를 로드                  
                 for j in range(review_cnt):
-                    if soup.select_one(f'li:nth-child({j+1}) > div._3vfQ6 > a > span') != None: #긴 리뷰는 펼치기 버튼이 있으므로 찾아서 누르기
-                        if(len(soup.select(f'li:nth-child({j+1}) > div._3vfQ6 > a > span'))) == 2:
+                    if soup.select_one(f'li:nth-of-type({j+1}) > div._3vfQ6 > a > span') != None: #긴 리뷰는 펼치기 버튼이 있으므로 찾아서 누르기
+                        if(len(soup.select(f'li:nth-of-type({j+1}) > div._3vfQ6 > a > span'))) == 2:
                             continue
-                            driver.find_element_by_css_selector(f'li:nth-child({j+1}) > > div._3vfQ6 > a').click() #클릭 함수가 안될 경우 엔터 키를 보냄 
+                            driver.find_element_by_css_selector(f'li:nth-of-type({j+1}) > > div._3vfQ6 > a').click() #클릭 함수가 안될 경우 엔터 키를 보냄 
                             current_page = driver.page_source
                             soup = BeautifulSoup(current_page, 'html.parser')  #리뷰를 펼치고 다시 로드                      
                             time.sleep(1)                                         
-                        review_text = soup.select_one(f'li:nth-child({j+1}) > div._3vfQ6 > a > span').text.strip() #텍스트 추출
+                        review_text = soup.select_one(f'li:nth-of-type({j+1}) > div._3vfQ6 > a > span').text.strip() #텍스트 추출
                         star_rate = ''
-                        if  soup.select_one(f'li:nth-child({j+1}) > div._3-LAD > span._1fvo3.Sv1wj > em') == None:
+                        if  soup.select_one(f'li:nth-of-type({j+1}) > div._3-LAD > span._1fvo3.Sv1wj > em') == None:
                             continue
+<<<<<<< HEAD
                         star_rate = soup.select_one(f'li:nth-child({j+1}) > div._3-LAD > span._1fvo3.Sv1wj > em').text #별점 추출
                         review_data.append((place_name, review_text, star_rate)) #리스트로 저장
+=======
+                        star_rate = soup.select_one(f'li:nth-of-type({j+1}) > div._3-LAD > span._1fvo3.Sv1wj > em').text #별점 추출
+                        '''review_data.append((place_name, review_text, star_rate)) #리스트로 저장'''
+>>>>>>> 39bcf8f6677ba1bf987e45829a5094bb0994d729
                         review_obj = {
                             'place' : place_name,
                             'review' : review_text,
