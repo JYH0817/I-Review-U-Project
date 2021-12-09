@@ -29,6 +29,11 @@ class BuildingData(models.Model):
                 self.slug = generate_unique_slug(BuildingData, self.building_name)
             super(BuildingData, self).save(*args, **kwargs)
 
+class ReviewData(models.Model):
+    building_name = models.CharField(max_length=50)
+    review_content = models.TextField()
+    star_num = models.FloatField()
+
 '''
 def save(self, *args, **kwargs):
         self.slug = slugify(self.building_name, allow_unicode=True)
@@ -38,10 +43,3 @@ def save(self, *args, **kwargs):
             print(f"the repeated slug is: `{self.slug}`")
             raise 
 '''
-    
-
-class ReviewData(models.Model):
-    building_name = models.CharField(max_length=50)
-    review_content = models.TextField()
-    star_num = models.FloatField()
-    positivity = models.TextField()

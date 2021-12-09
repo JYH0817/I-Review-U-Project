@@ -3,7 +3,6 @@ from urllib.request import urlopen
 import time
 from seleniumwire import webdriver
 from selenium.webdriver.chrome.options import Options
-import math
 import pandas as pd
 from selenium.webdriver.common.keys import Keys
 from PyQt5 import QtCore, QtWidgets
@@ -21,7 +20,7 @@ def crawling(search_key, search_cnt, file_name):
     chrome_options.add_experimental_option("excludeSwitches", ["enable-logging"])
     #chrome_options.add_argument("headless") #백그라운드 실행
 
-    '''review_data = []'''
+    review_data = []
     review_dict = []
     building_dict = []
 
@@ -118,8 +117,10 @@ def crawling(search_key, search_cnt, file_name):
                         star_rate = ''
                         if  soup.select_one(f'li:nth-of-type({j+1}) > div._3-LAD > span._1fvo3.Sv1wj > em') == None:
                             continue
+
                         star_rate = soup.select_one(f'li:nth-of-type({j+1}) > div._3-LAD > span._1fvo3.Sv1wj > em').text #별점 추출
-                        '''review_data.append((place_name, review_text, star_rate)) #리스트로 저장'''
+                        review_data.append((place_name, review_text, star_rate)) #리스트로 저장
+
                         review_obj = {
                             'place' : place_name,
                             'review' : review_text,
@@ -132,15 +133,17 @@ def crawling(search_key, search_cnt, file_name):
         print(current_place)               
         driver.switch_to_default_content() #프레임 초기화
         time.sleep(2)
-        
-    '''df = pd.DataFrame(review_data, columns = ['장소명', '리뷰', '별점']) #데이터 프레임으로 만들어 엑셀에 저장
-    df.to_csv(file_name + '.csv', encoding='utf-8-sig', index=False)'''
+   
+    df = pd.DataFrame(review_data, columns = ['장소명', '리뷰', '별점']) #데이터 프레임으로 만들어 엑셀에 저장
+    df.to_csv(file_name + '.csv', encoding='utf-8-sig', index=False)
+
     if __name__=='__main__':
         for item in building_dict:
             BuildingData(building_name = item['place'], building_loc = item['location'], building_call = item['call']).save()
             #BuildingData(building_name = item['place'], building_loc = item['location'], building_call = item['call'], building_time = item['time']).save()
         for item in review_dict:
-            ReviewData(building_name = item['place'], review_content = item['review'], star_num = item['rate'], positivity = item['review']).save()
+            ReviewData(building_name = item['place'], review_content = item['review'], star_num = item['rate']).save()
+
     driver.close()
 
 
