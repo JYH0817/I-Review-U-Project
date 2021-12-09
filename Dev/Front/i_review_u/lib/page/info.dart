@@ -1,8 +1,9 @@
 // @dart=2.9
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'review.dart';
-
+import 'review2.dart';
 
 
 class Post {
@@ -37,71 +38,56 @@ class _InfoState extends State<Info> {
           children: <Widget>[
             SizedBox(
                 height: 160,
-                width: 160,
+                width: 200,
                 child: Image.asset(
                     'assets/images/' + value.buildingName.toString() + '.jpg'))
           ],
         ),
         Container(
           margin: EdgeInsets.all(5),
-          width: 140,
+          width: 400,
           height: 50,
-          color: Colors.white70,
-          child: Text(
+          color: Colors.pink[100],
+          alignment: Alignment.center,
+          child:Text(
             value.buildingName.toString(),
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.all(10),
-          width: 60,
-          height: 50,
-          color: Colors.white70,
-          child: Text(
-            '기본 정보',
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color:Colors.pink),
           ),
         ),
         Container(
           margin: EdgeInsets.all(10),
           padding: EdgeInsets.all(15),
           width: 400,
-          height: 70,
-          color: Colors.green,
-          child: Text(
-            value.buildingLoc.toString() + '\n' + value.buildingCall.toString(),
+          height: 100,
+          alignment: Alignment.center,
+          color: Colors.pink[50],
+          child: Text("                기본정보\n\n"+
+            "위치: "+value.buildingLoc.toString() + '\n전화번호: ' + value.buildingCall.toString(),
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
         Container(
           margin: EdgeInsets.all(10),
-          width: 60,
+          width: 100,
           height: 50,
-          color: Colors.white70,
-          child: Text(
-            '종합 리뷰',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.all(10),
-          padding: EdgeInsets.all(25),
-          width: 400,
-          height: 120,
-          color: Colors.green,
-
-          // child: Text('책상이 넓고 노트북 좌석이 있지만,\n음료가 맛이 없다.', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red, fontSize: 18),),
-        ),
-        Container(
-          margin: EdgeInsets.all(10),
-          width: 50,
-          height: 50,
-          color: Colors.white70,
           child: RaisedButton(
               onPressed: () {Get.to(Review(), arguments: value.slug.toString());},
+              color: Colors.pink[100],
               child: Text(
                 '리뷰',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
+              )),
+        ),
+        Container(
+          margin: EdgeInsets.all(10),
+          width: 100,
+          height: 50,
+          child: RaisedButton(
+              onPressed: () {Get.to(ReviewAnalysis(), arguments: value.slug.toString());},
+              color: Colors.pink[200],
+              child: Text(
+                '리뷰 분석',
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
               )),
         )
       ])),

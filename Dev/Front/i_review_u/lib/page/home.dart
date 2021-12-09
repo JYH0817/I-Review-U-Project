@@ -51,7 +51,7 @@ class _HomeState extends State<Home> {
   String currentLocation;
   ContentsRepository contentsRepository;
   final Map<String, String> locationTypeToString = {
-    "seongnam": "성남시 스터디카페",
+    "seongnam": "수정구 스터디카페",
     "chungwon": "중원구 스터디카페",
     "bundang": "분당구 스터디카페",
   };

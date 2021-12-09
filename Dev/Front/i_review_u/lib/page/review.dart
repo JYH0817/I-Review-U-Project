@@ -150,13 +150,13 @@ class _ReviewState extends State<Review> {
                       Text(
                         datas[index].star.toString(),
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontSize: 15),
+                        style: TextStyle(fontSize: 15, color: Colors.orange.withOpacity(0.7)),
                       ),
                       SizedBox(height: 5),
                       Text(
                         datas[index].review.toString(),
                         style: TextStyle(
-                            fontSize: 10, color: Colors.black.withOpacity(0.3)),
+                            fontSize: 10, color: Colors.black.withOpacity(0.7)),
                       ),
                       SizedBox(height: 5),
                     ],
