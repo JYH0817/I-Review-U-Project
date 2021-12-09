@@ -18,10 +18,12 @@ from django.urls import path
 from crawling_data.views import ReviewListAPI
 from crawling_data.views import BuildingInfoAPI
 from crawling_data.views import AnalysisAPI
+from crawling_data.views import ReviewAnalysisAPI
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/buildingdata/', BuildingInfoAPI.as_view()),
     path('api/buildingdata/<str:slug>/', ReviewListAPI.as_view()),
-    path('api/buildingdata/<str:slug>/analysis', AnalysisAPI.as_view())
+    path('api/buildingdata/<str:slug>/analysisInfo', AnalysisAPI.as_view()),
+    path('api/buildingdata/<str:slug>/analysis', ReviewAnalysisAPI.as_view())
 ]

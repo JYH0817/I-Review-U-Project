@@ -35,7 +35,8 @@ def crawling(search_key, search_cnt, file_name):
 
 
     url = "https://map.naver.com/v5/search/" + search_key #네이버 플레이스 검색
-    driverPath = "chromedriver.exe" #절대경로
+    #driverPath = "chromedriver.exe" #상대경로
+    driverPath = "D:\\I Review U Project\\Dev\\Backend\\chromedriver.exe" #절대경로
     driver = webdriver.Chrome(driverPath, options=chrome_options)
     driver.implicitly_wait(5) #로딩까지 기다리기 위해 implicitly_wait와 sleep 사용
     driver.get(url) #드라이버로 받은 주소를 실행

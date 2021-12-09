@@ -22,6 +22,14 @@ class ReviewListAPI(APIView):
         serializer = ReviewSerializer(queryset, many=True)
         return Response(serializer.data)
 
+class ReviewAnalysisAPI(APIView):
+    def get(self, request, slug):
+        building_name = BuildingData.objects.filter(slug=slug).values_list('building_name',flat=True)[0] 
+        queryset = ReviewData.objects.filter(building_name=building_name) 
+        serializer = ReviewSerializer(queryset, many=True)
+        new_review = PororoConfig.review(serializer.data)
+        return Response(new_review)
+
 class AnalysisAPI(APIView):
     def get(self, request, slug):
         building_name = BuildingData.objects.filter(slug=slug).values_list('building_name',flat=True)[0] 
