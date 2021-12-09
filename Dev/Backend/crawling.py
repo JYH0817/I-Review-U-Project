@@ -40,7 +40,7 @@ def crawling(search_key, search_cnt, file_name):
     driver.implicitly_wait(5) #로딩까지 기다리기 위해 implicitly_wait와 sleep 사용
     driver.get(url) #드라이버로 받은 주소를 실행
     time.sleep(3)
-    driver.switch_to_frame('searchIframe') # 네이버플레이스 맨 왼쪽 장소를 보여주는 프레임
+    driver.switch_to.frame('searchIframe') # 네이버플레이스 맨 왼쪽 장소를 보여주는 프레임
 
     ad_cnt = len(driver.find_elements_by_partial_link_text('광고'))# 광고가 붙어있는 리스트는 중복되므로 건너뛰기 위해 카운트
     body = driver.find_element_by_css_selector('body')
@@ -55,7 +55,7 @@ def crawling(search_key, search_cnt, file_name):
     current_place = 0 + ad_cnt
     driver.switch_to_default_content()   
     for i in range(ad_cnt, search_cnt + ad_cnt): #페이지당 장소 최대 50개
-        driver.switch_to_frame('searchIframe') # 해당 장소 리뷰 크롤링이 끝나면 프레임 전환
+        driver.switch_to.frame('searchIframe') # 해당 장소 리뷰 크롤링이 끝나면 프레임 전환
         current_page = driver.page_source
         soup = BeautifulSoup(current_page, 'html.parser') #html 로드
         place_list = driver.find_element_by_xpath(f'/html/body/div[3]/div/div/div[1]/ul/li[{i+1}]/div[2]/a[1]')  # 해당 장소의 xpath 경로
@@ -65,7 +65,7 @@ def crawling(search_key, search_cnt, file_name):
         place_list.click() #클릭
         time.sleep(2) #페이지 로드를 기다림
         driver.switch_to_default_content() 
-        driver.switch_to_frame('entryIframe') # 장소의 상세한 정보를 나타내는 두번째 프레임
+        driver.switch_to.frame('entryIframe') # 장소의 상세한 정보를 나타내는 두번째 프레임
         current_page = driver.page_source
         soup = BeautifulSoup(current_page, 'html.parser') #html 로드
         call_number = soup.select_one(f'div > ul > li._1M_Iz._3xPmJ > div > span._3ZA0S').text 
