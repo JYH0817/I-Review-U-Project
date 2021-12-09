@@ -117,13 +117,10 @@ def crawling(search_key, search_cnt, file_name):
                         star_rate = ''
                         if  soup.select_one(f'li:nth-of-type({j+1}) > div._3-LAD > span._1fvo3.Sv1wj > em') == None:
                             continue
-<<<<<<< HEAD
+
                         star_rate = soup.select_one(f'li:nth-child({j+1}) > div._3-LAD > span._1fvo3.Sv1wj > em').text #별점 추출
                         review_data.append((place_name, review_text, star_rate)) #리스트로 저장
-=======
-                        star_rate = soup.select_one(f'li:nth-of-type({j+1}) > div._3-LAD > span._1fvo3.Sv1wj > em').text #별점 추출
-                        '''review_data.append((place_name, review_text, star_rate)) #리스트로 저장'''
->>>>>>> 39bcf8f6677ba1bf987e45829a5094bb0994d729
+
                         review_obj = {
                             'place' : place_name,
                             'review' : review_text,
