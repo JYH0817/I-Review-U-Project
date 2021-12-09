@@ -5,12 +5,13 @@ import 'package:i_review_u/repository/contents_repository.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:get/get.dart';
-import 'info.dart';
+
 
 
 Future<List<Post>> getData() async {
+  var slug = Get.arguments;
   final response = await http.get(
-      Uri.parse("http://192.168.0.9:8000/api/buildingdata/"),
+      Uri.parse("http://192.168.0.9:8000/api/buildingdata/" + slug + "/"),
       headers: {"Access-Control-Allow-Origin": "*"});
   if (response.statusCode == 200) {
     List list = (json.decode(utf8.decode(response.bodyBytes)));
@@ -23,29 +24,27 @@ Future<List<Post>> getData() async {
 
 class Post {
   final String buildingName;
-  final String buildingLoc;
-  final String buildingCall;
-  final String slug;
+  final String review;
+  final String star;
 
-  Post({this.buildingName, this.buildingLoc, this.buildingCall, this.slug});
+  Post({this.buildingName, this.review, this.star});
 
   factory Post.fromJson(Map<String, dynamic> json) {
     return Post(
         buildingName: json["building_name"],
-        buildingLoc: json["building_loc"],
-        buildingCall: json["building_call"],
-        slug: json["slug"]);
+        review: json["review_content"],
+        star: json["star_num"].toString());
   }
 }
 
-class Home extends StatefulWidget {
-  Home({Key key}) : super(key: key);
+class Review extends StatefulWidget {
+  Review({Key key}) : super(key: key);
 
   @override
-  _HomeState createState() => _HomeState();
+  _ReviewState createState() => _ReviewState();
 }
 
-class _HomeState extends State<Home> {
+class _ReviewState extends State<Review> {
   Future<List<Post>> postList;
   String currentLocation;
   ContentsRepository contentsRepository;
@@ -134,52 +133,36 @@ class _HomeState extends State<Home> {
     return ListView.separated(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       itemBuilder: (BuildContext _context, int index) {
-        return GestureDetector(
-          onTap: () {
-            Get.to(Info(), arguments: datas[index]);
-          },
-          child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: Row(
-              children: [
-                ClipRRect(
-                    // 매장 이미지
-                    borderRadius: BorderRadius.all(Radius.circular(20)), // 원 효과
-                    child: Image.asset(
-                      "assets/images/" +
-                          datas[index].buildingName.toString() +
-                          ".jpg",
-                      width: 100,
-                      height: 100,
-                    )),
-                Expanded(
-                  // 화면 확장
-                  child: Container(
-                    // 매장 정보
-                    height: 100,
-                    padding: const EdgeInsets.only(left: 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start, // 왼쪽 정렬
-                      children: [
-                        Text(
-                          datas[index].buildingName.toString(),
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(fontSize: 15),
-                        ),
-                        SizedBox(height: 5),
-                        Text(
-                          datas[index].buildingLoc.toString(),
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.black.withOpacity(0.3)),
-                        ),
-                        SizedBox(height: 5),
-                      ],
-                    ),
+        return Container(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Row(
+            children: [
+              Expanded(
+                // 화면 확장
+                child: Container(
+                  // 매장 정보
+                  height: 100,
+                  padding: const EdgeInsets.only(left: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start, // 왼쪽 정렬
+                    children: [
+                      Text(
+                        datas[index].star.toString(),
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontSize: 15),
+                      ),
+                      SizedBox(height: 5),
+                      Text(
+                        datas[index].review.toString(),
+                        style: TextStyle(
+                            fontSize: 10, color: Colors.black.withOpacity(0.3)),
+                      ),
+                      SizedBox(height: 5),
+                    ],
                   ),
-                )
-              ],
-            ),
+                ),
+              )
+            ],
           ),
         );
       },

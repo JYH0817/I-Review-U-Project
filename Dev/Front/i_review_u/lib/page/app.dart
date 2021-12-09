@@ -10,7 +10,6 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  
   late int _currentPageIndex;
 
   @override
@@ -20,8 +19,8 @@ class _AppState extends State<App> {
   }
 
   // 하단바에 따른 바디 스위치
-  Widget _bodyWidget(){
-    switch (_currentPageIndex){
+  Widget _bodyWidget() {
+    switch (_currentPageIndex) {
       case 0:
         return Home();
         break;
@@ -29,10 +28,10 @@ class _AppState extends State<App> {
         return Container();
         break;
       case 2:
-      return Container();
+        return Container();
         break;
       case 3:
-      return Container();
+        return Container();
         break;
       case 4:
         return Container();
@@ -42,7 +41,8 @@ class _AppState extends State<App> {
   }
 
   // 하단 바 아이콘 함수
-  BottomNavigationBarItem _bottomNavigationBarItem(String iconName, String label){
+  BottomNavigationBarItem _bottomNavigationBarItem(
+      String iconName, String label) {
     return BottomNavigationBarItem(
       icon: Padding(
         padding: const EdgeInsets.only(bottom: 5),
@@ -57,10 +57,10 @@ class _AppState extends State<App> {
   }
 
   // 하단 바
-  Widget _bottomNavigationBarWidget(){
+  Widget _bottomNavigationBarWidget() {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
-      onTap: (int index){
+      onTap: (int index) {
         setState(() {
           _currentPageIndex = index;
         });
@@ -74,7 +74,7 @@ class _AppState extends State<App> {
         _bottomNavigationBarItem("chat", "temp3"),
         _bottomNavigationBarItem("user", "My Page"),
       ],
-      );
+    );
   }
 
   @override
@@ -83,5 +83,5 @@ class _AppState extends State<App> {
       body: _bodyWidget(),
       bottomNavigationBar: _bottomNavigationBarWidget(),
     );
-  } 
-} 
+  }
+}

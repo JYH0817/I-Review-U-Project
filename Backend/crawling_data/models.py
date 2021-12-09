@@ -43,3 +43,6 @@ class ReviewData(models.Model):
     building_name = models.CharField(max_length=50)
     review_content = models.TextField()
     star_num = models.FloatField()
+
+
+

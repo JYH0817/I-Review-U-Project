@@ -13,8 +13,9 @@ class BuildingInfoAPI(APIView):
         queryset = BuildingData.objects.all()
         serializer = BuildingSerializer(queryset, many=True)
         return Response(serializer.data)
-class ReviewListAPI(APIView):
-    def get(self, request, slug):
-        queryset = ReviewData.objects.all()
-        serializer = ReviewSerializer(queryset, many=True)
+class ReviewListAPI(APIView): 
+    def get(self, request, slug): 
+        building_name = BuildingData.objects.filter(slug=slug).values_list('building_name',flat=True)[0] 
+        queryset = ReviewData.objects.filter(building_name=building_name) 
+        serializer = ReviewSerializer(queryset, many=True) 
         return Response(serializer.data)
