@@ -10,9 +10,8 @@ class CrawlingDataConfig(AppConfig):
 
 class PororoConfig(AppConfig):
     # pororo 모델 생성
-    mecab = Mecab(dicpath=r"C:\mecab\mecab-ko-dic") # 토크나이저
 
-    def getPositivity(input):
+    def analysis(input):
         sa = Pororo(task="sentiment", model="brainbert.base.ko.shopping", lang="ko") # 긍부정분석
         zsl = Pororo(task="zero-topic", lang="ko") # 주제분석
         new_list = list()
@@ -31,5 +30,3 @@ class PororoConfig(AppConfig):
             new_list.append(review)
         return new_list
 
-    
-    

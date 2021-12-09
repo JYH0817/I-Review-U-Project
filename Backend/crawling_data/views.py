@@ -14,9 +14,10 @@ class BuildingInfoAPI(APIView):
         queryset = BuildingData.objects.all()
         serializer = BuildingSerializer(queryset, many=True)
         return Response(serializer.data)
+
 class ReviewListAPI(APIView):
     def get(self, request, slug):
         queryset = ReviewData.objects.all()
         serializer = ReviewSerializer(queryset, many=True)
-        new_review = PororoConfig.getPositivity(serializer.data)
+        new_review = PororoConfig.analysis(serializer.data)
         return Response(new_review)
