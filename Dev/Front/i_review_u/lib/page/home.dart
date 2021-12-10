@@ -77,6 +77,7 @@ class _HomeState extends State<Home> {
           print("long press");
         }, // 추후 다른 이벤트 추가
         child: PopupMenuButton<String>(
+          color: Colors.pink[50],
           offset: Offset(0, 25), // 평행이동
           shape: ShapeBorder.lerp(
               // 원처리
@@ -100,8 +101,14 @@ class _HomeState extends State<Home> {
           child: Row(
             children: [
               // 지역 선택
-              Text(locationTypeToString[currentLocation].toString()),
-              Icon(Icons.arrow_drop_down),
+              Text(
+                locationTypeToString[currentLocation].toString(),
+                style: TextStyle(color: Colors.white),
+              ),
+              Icon(
+                Icons.arrow_drop_down,
+                color: Colors.white,
+                ),
             ],
           ),
         ),
@@ -200,7 +207,9 @@ class _HomeState extends State<Home> {
           if (snapshot.connectionState != ConnectionState.done) {
             // 데이터 없을 때 로딩 처리
             return Center(
-              child: CircularProgressIndicator(),
+              child: Image.asset("assets/images/loading.jpg",
+              color: Color(0xFFC0CB),),
+              
             );
           }
           if (snapshot.hasError) {
@@ -221,6 +230,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: _appbarWidget(),
       body: _bodyWidget(),
+      backgroundColor: Colors.pink[50].withOpacity(0.5),
     );
   }
 }

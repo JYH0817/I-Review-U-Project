@@ -28,19 +28,26 @@ class _InfoState extends State<Info> {
     var value = Get.arguments;
     return Scaffold(
       appBar: AppBar(
-        title: Text("상세 정보"),
+        title: Text(
+          "상세 정보",
+          style: TextStyle(color: Colors.white),),
         backgroundColor: Colors.pink,
       ),
+      backgroundColor: Colors.pink[50],
       body: Center(
-          child: Column(children: <Widget>[
+        
+        child: Column(children: <Widget>[
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            SizedBox(
-                height: 160,
-                width: 200,
+            ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(40)),
                 child: Image.asset(
-                    'assets/images/' + value.buildingName.toString() + '.jpg'))
+                    'assets/images/' + value.buildingName.toString() + '.jpg',
+                    height: 160,
+                    width: 200,
+                    ),
+                )
           ],
         ),
         Container(
@@ -55,12 +62,16 @@ class _InfoState extends State<Info> {
           ),
         ),
         Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(50),
+            border: Border.all(color: Colors.white, width:1),
+            color: Colors.white,
+          ),
           margin: EdgeInsets.all(10),
           padding: EdgeInsets.all(15),
           width: 400,
           height: 100,
           alignment: Alignment.center,
-          color: Colors.pink[50],
           child: Text("                기본정보\n\n"+
             "위치: "+value.buildingLoc.toString() + '\n전화번호: ' + value.buildingCall.toString(),
             style: TextStyle(fontWeight: FontWeight.bold),
@@ -71,6 +82,9 @@ class _InfoState extends State<Info> {
           width: 100,
           height: 50,
           child: RaisedButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+                ), 
               onPressed: () {Get.to(Review(), arguments: value.slug.toString());},
               color: Colors.pink[100],
               child: Text(
@@ -83,6 +97,9 @@ class _InfoState extends State<Info> {
           width: 100,
           height: 50,
           child: RaisedButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+                ),
               onPressed: () {Get.to(ReviewAnalysis(), arguments: value.slug.toString());},
               color: Colors.pink[200],
               child: Text(

@@ -50,16 +50,15 @@ class _ReviewState extends State<Review> {
   String currentLocation;
   ContentsRepository contentsRepository;
   final Map<String, String> locationTypeToString = {
-    "seongnam": "성남시 스터디카페",
-    "songpa": "송파구 스터디카페",
-    "gangnam": "강남구 스터디카페",
+    "default": "작성순",
+    "star":"높은 별점순",
+    "star_asc":"낮은 별점순"
   };
-
   @override
   void initState() {
     super.initState();
     postList = getData();
-    currentLocation = "seongnam";
+    currentLocation = "default";
     //contentsRepository = ContentsRepository();
   }
 
@@ -76,6 +75,7 @@ class _ReviewState extends State<Review> {
           print("long press");
         }, // 추후 다른 이벤트 추가
         child: PopupMenuButton<String>(
+          color: Colors.pink[50],
           offset: Offset(0, 25), // 평행이동
           shape: ShapeBorder.lerp(
               // 원처리
@@ -91,16 +91,18 @@ class _ReviewState extends State<Review> {
           itemBuilder: (BuildContext context) {
             // 지역 리스트
             return [
-              PopupMenuItem(value: "seongnam", child: Text("성남시")),
-              PopupMenuItem(value: "songpa", child: Text("송파구")),
-              PopupMenuItem(value: "gangnam", child: Text("강남구")),
+              PopupMenuItem(value: "default", child: Text("작성순")),
+              PopupMenuItem(value: "star", child: Text("높은 별점순")),
+              PopupMenuItem(value: "star_asc", child: Text("낮은 별점순")),
             ];
           },
           child: Row(
             children: [
               // 지역 선택
-              Text(locationTypeToString[currentLocation].toString()),
-              Icon(Icons.arrow_drop_down),
+              Text(locationTypeToString[currentLocation].toString(),
+              style: TextStyle(fontSize: 20, color:Colors.white)),
+              Icon(Icons.arrow_drop_down,
+              color:Colors.white,),
             ],
           ),
         ),
@@ -109,14 +111,6 @@ class _ReviewState extends State<Review> {
       elevation: 1,
       actions: [
         // 상단 아이콘
-        IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.search),
-        ), // 검색
-        IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.tune),
-        ), // 기타
         IconButton(
             // 알림
             onPressed: () {},
@@ -183,7 +177,7 @@ class _ReviewState extends State<Review> {
           if (snapshot.connectionState != ConnectionState.done) {
             // 데이터 없을 때 로딩 처리
             return Center(
-              child: CircularProgressIndicator(),
+              child: Image.asset("assets/images/loading.jpg"),
             );
           }
           if (snapshot.hasError) {
@@ -193,9 +187,18 @@ class _ReviewState extends State<Review> {
           }
           if (snapshot.hasData) {
             // 데이터 있을 때만
-            return _makeDataList(snapshot.data);
+            List<Post> myData = snapshot.data;
+            if(currentLocation == "default"){ // 작성순
+            }
+            else if(currentLocation == "star"){ // 별점 높은순
+              myData.sort((b, a) => a.star.compareTo(b.star));
+            }
+            else if(currentLocation == "star_asc"){ // 별점 낮은순
+              myData.sort((a, b) => a.star.compareTo(b.star));
+            }
+            return _makeDataList(myData);
           }
-          return Center(child: Text("해당 지역에 데이터가 없습니다"));
+          return Center(child: Text("해당 매장에 데이터가 없습니다"));
         });
   }
 
