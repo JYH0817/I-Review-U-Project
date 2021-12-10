@@ -4,8 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:get/get.dart';
-
-
+import 'package:i_review_u/page/chart.dart';
 
 Future<List<Post>> getData() async {
   var slug = Get.arguments;
@@ -195,63 +194,192 @@ class _ReviewState extends State<ReviewAnalysis> {
       ],
     );
   }
+  int getNum(List<Post> myData){
+    int num = myData.length;
+    return num;
+  }
 
-  _makeDataList(List<Post> datas) {
-    // 매장 데이터
+  double getStar(List<Post> myData){
+    double starAvr;
+    double sum = 0;
+    myData.forEach((data) {
+      sum += double.parse(data.star);
+    });
+    if(myData.length == 0){
+      return 0;
+    }
+    starAvr = sum / myData.length;
+    starAvr = (starAvr * 100).round() / 100;
+    return starAvr;
+  }
+
+  int getRatio(List<Post> myData){
+    List<Post> positive;
+    List<Post> negative;
+    positive = myData.where((x) => x.positivity >= 0.5).toList();
+    negative = myData.where((x) => x.positivity < 0.5).toList();
+    int a = positive.length;
+    int b = negative.length;
+    if(a == 0 && b == 0){
+      return 100;
+    }
+    return ((a/(a+b))*100).round();
+  }
+
+  List<double> getAttributeList(List<Post> myData){
+    List<Post> a, b, c, d, e, f, g, h;
+    a = myData.where((x) => x.attribute == "음식").toList();
+    print(a);
+    b = myData.where((x) => x.attribute == "온도").toList();
+    c = myData.where((x) => x.attribute == "청결").toList();
+    d = myData.where((x) => x.attribute == "편의성").toList();
+    e = myData.where((x) => x.attribute == "분위기").toList();
+    f = myData.where((x) => x.attribute == "친절").toList();
+    g = myData.where((x) => x.attribute == "가격").toList();
+    h = myData.where((x) => x.attribute == "위치").toList();
+
+    List<double> myList = [a.length/1, b.length/1, c.length/1, d.length/1, e.length/1, f.length/1, g.length/1, h.length/1];
     
-    return ListView.separated(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      itemBuilder: (BuildContext _context, int index) {
-        return Container(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Row(
-            children: [
-              Expanded(
-                // 화면 확장
-                child: Container(
-                  // 매장 정보
-                  height: 100,
-                  padding: const EdgeInsets.only(left: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start, // 왼쪽 정렬
-                    children: [
-                      Text(
-                        datas[index].star.toString(),
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontSize: 15, color: Colors.orange.withOpacity(0.7)),
-                      ),
-                      SizedBox(height: 5),
-                      Text(
-                        datas[index].review.toString(),
-                        style: TextStyle(
-                            fontSize: 10, color: Colors.black.withOpacity(0.7)),
-                      ),
-                      SizedBox(height: 5),
-                      Text(
-                        "긍정도: "+((datas[index].positivity * 10000).round()/100).toString() + "%",
-                        style: TextStyle(
-                            fontSize: 10, color: Colors.blue),
-                      ),
-                      SizedBox(height: 5),
-                      Text(
-                        "속성: "+datas[index].attribute.toString(),
-                        style: TextStyle(
-                            fontSize: 10, color: Colors.pink),
-                      ),
-                      SizedBox(height: 5),
-                    ],
+    return myList;
+  }
+  _makeDataList(List<Post> datas) {
+    // 리뷰 데이터
+    
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+            height: 50,
+            color: Colors.green[200],
+            child:Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "리뷰 분석 레포트",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 20, color: Colors.purpleAccent, fontWeight: FontWeight.bold),
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child:Text(
+                    "리뷰 개수: ${getNum(datas)}",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 15, color: Colors.black),
                   ),
                 ),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child:Text(
+                    "평균 별점: ${getStar(datas)}",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 15, color: Colors.black),
+                  ),
+                )
+              ],
               )
-            ],
           ),
-        );
-      },
-      separatorBuilder: (BuildContext _context, int index) {
-        // 분할선
-        return Container(height: 1, color: Colors.pink.withOpacity(0.4));
-      },
-      itemCount: datas.length,
+          Row( 
+            children:[
+              Container( // PieChart
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                height: 180,
+                width: 150,
+                color: Colors.green[50],
+                child: CustomPaint(
+                  size:Size(50,50),
+                  painter: PieChart(
+                    percentage: getRatio(datas),
+                    textScaleFactor: 0.8,
+                  )
+
+                )
+              ),
+              Container( // BarChart
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                height: 180,
+                width: 230,
+                color: Colors.green[50],
+                child: CustomPaint(
+                  size:Size(100,100),
+                  painter: BarChart(
+                    data: getAttributeList(datas),
+                    labels: ["음식","온도","청결","편의","무드","친절","가격","위치"],
+                    color: Colors.pinkAccent
+                  )
+
+                )
+              ),
+            ]
+          ),
+          Expanded(
+            child:Container(
+              
+              child: ListView.separated(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                itemBuilder: (BuildContext _context, int index) {
+                  return Container(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              // 화면 확장
+                              child: Container(
+                                // 매장 정보
+                                
+                                
+                                padding: const EdgeInsets.only(left: 20),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start, // 왼쪽 정렬
+                                  children: [
+                                    Text(
+                                      datas[index].star.toString(),
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(fontSize: 15, color: Colors.orange.withOpacity(0.7)),
+                                    ),
+                                    SizedBox(height: 5),
+                                    Text(
+                                      datas[index].review.toString(),
+                                      
+                                      style: TextStyle(
+                                          fontSize: 13, color: Colors.black.withOpacity(0.7)),
+                                    ),
+                                    SizedBox(height: 5),
+                                    Text(
+                                      "긍정도: "+((datas[index].positivity * 10000).round()/100).toString() + "%",
+                                      style: TextStyle(
+                                          fontSize: 13, color: Colors.blue),
+                                    ),
+                                    SizedBox(height: 5),
+                                    Text(
+                                    
+                                      "속성: "+datas[index].attribute.toString(),
+                                      
+                                      style: TextStyle(
+                                          fontSize: 13, color: Colors.pink),
+                                    ),
+                                    SizedBox(height: 5),
+                                  ],
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      );
+                    
+                  
+                },
+                separatorBuilder: (BuildContext _context, int index) {
+                  // 분할선
+                  return Container(height: 1, color: Colors.pink.withOpacity(0.4));
+                },
+                itemCount: datas.length,
+              )
+          )
+        )
+        ],
+      )
     );
   }
 

@@ -99,8 +99,9 @@ class _InfoState extends State<Info> {
           child: RaisedButton(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
-                ),
+                 ),
               onPressed: () {Get.to(ReviewAnalysis(), arguments: value.slug.toString());},
+              //onPressed: () {Get.to(InfoAnalysis(), arguments: value);},
               color: Colors.pink[200],
               child: Text(
                 '리뷰 분석',
