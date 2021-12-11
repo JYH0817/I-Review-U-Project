@@ -7,11 +7,10 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'info.dart';
 
-
 Future<List<Post>> getData() async {
   final response = await http.get(
-     //Uri.parse("http://192.168.55.233:8000/api/buildingdata/"),//세훈
-      Uri.parse("http://192.168.55.233:8000/api/buildingdata/"),
+      //Uri.parse("http://192.168.55.233:8000/api/buildingdata/"),//세훈
+      Uri.parse("http://192.168.0.9:8000/api/buildingdata/"),
       headers: {"Access-Control-Allow-Origin": "*"});
   if (response.statusCode == 200) {
     List list = (json.decode(utf8.decode(response.bodyBytes)));
@@ -51,7 +50,7 @@ class _HomeState extends State<Home> {
   String currentLocation;
   ContentsRepository contentsRepository;
   final Map<String, String> locationTypeToString = {
-    "seongnam": "수정구 스터디카페",
+    "sujeong": "수정구 스터디카페",
     "chungwon": "중원구 스터디카페",
     "bundang": "분당구 스터디카페",
   };
@@ -60,8 +59,7 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     postList = getData();
-    currentLocation = "seongnam";
-    //contentsRepository = ContentsRepository();
+    currentLocation = "sujeong";
   }
 
   // 앱 바
@@ -93,7 +91,7 @@ class _HomeState extends State<Home> {
           itemBuilder: (BuildContext context) {
             // 지역 리스트
             return [
-              PopupMenuItem(value: "seongnam", child: Text("수정구")),
+              PopupMenuItem(value: "sujeong", child: Text("수정구")),
               PopupMenuItem(value: "chungwon", child: Text("중원구")),
               PopupMenuItem(value: "bundang", child: Text("분당구")),
             ];
@@ -108,7 +106,7 @@ class _HomeState extends State<Home> {
               Icon(
                 Icons.arrow_drop_down,
                 color: Colors.white,
-                ),
+              ),
             ],
           ),
         ),
@@ -138,7 +136,15 @@ class _HomeState extends State<Home> {
 
   _makeDataList(List<Post> datas) {
     // 매장 데이터
-
+    if (currentLocation == "sujeong") {
+          datas = datas.where((e) => e.buildingLoc.contains("수정구")).toList();
+        }
+        else if (currentLocation == "bundang") {
+          datas = datas.where((e) => e.buildingLoc.contains("분당구")).toList();
+        }
+        else if (currentLocation == "chungwon") {
+          datas = datas.where((e) => e.buildingLoc.contains("중원구")).toList();
+        }
     return ListView.separated(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       itemBuilder: (BuildContext _context, int index) {
@@ -207,9 +213,10 @@ class _HomeState extends State<Home> {
           if (snapshot.connectionState != ConnectionState.done) {
             // 데이터 없을 때 로딩 처리
             return Center(
-              child: Image.asset("assets/images/loading.jpg",
-              color: Color(0xFFC0CB),),
-              
+              child: Image.asset(
+                "assets/images/loading.jpg",
+                color: Color(0xFFC0CB),
+              ),
             );
           }
           if (snapshot.hasError) {
