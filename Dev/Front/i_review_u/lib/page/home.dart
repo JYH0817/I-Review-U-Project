@@ -214,7 +214,7 @@ class _HomeState extends State<Home> {
             // 데이터 없을 때 로딩 처리
             return Center(
               child: Image.asset(
-                "assets/images/loading.jpg",
+                "assets/images/loading.gif",
                 color: Color(0xFFC0CB),
               ),
             );

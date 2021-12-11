@@ -177,7 +177,7 @@ class _ReviewState extends State<Review> {
           if (snapshot.connectionState != ConnectionState.done) {
             // 데이터 없을 때 로딩 처리
             return Center(
-              child: Image.asset("assets/images/loading.jpg"),
+              child: Image.asset("assets/images/loading.gif"),
             );
           }
           if (snapshot.hasError) {
