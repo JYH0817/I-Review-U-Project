@@ -4,9 +4,9 @@
 
 
 
-## Proposal Presentation
+## Presentation
 
-[![Presentation](https://youtu.be/E2mGf3Gor7c/0.jpg)](https://youtu.be/E2mGf3Gor7c) 
+[![Presentation](https://img.youtube.com/vi/E2mGf3Gor7c/0.jpg)](https://youtu.be/E2mGf3Gor7c) 
 ## Memeber
 [김태희](https://github.com/taehui530), [안세훈](https://github.com/ashpurple), [정영훈](https://github.com/JYH0817), [고준호](https://github.com/JunhoGo)
 
