@@ -26,6 +26,8 @@
 - 격주 교수님 정기 미팅
 - 주 1회 조원 미팅
 
+
+
 ## Framework
 Flutter, Django, Pororo(kakao brain)
 
