@@ -26,7 +26,8 @@
 - 격주 교수님 정기 미팅
 - 주 1회 조원 미팅
 
-
+겨울방학
+- 목표: <b>모델링 완성</b>
 
 ## Framework
 Flutter, Django, Pororo(kakao brain)
