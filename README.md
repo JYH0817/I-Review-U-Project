@@ -28,6 +28,7 @@
 
 겨울방학
 - 목표: <b>모델링 완성</b>
+- 주 1회 조원 미팅
 
 ## Framework
 Flutter, Django, Pororo(kakao brain)
