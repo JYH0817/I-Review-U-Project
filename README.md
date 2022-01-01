@@ -36,8 +36,6 @@ Flutter, Django, Pororo(kakao brain)
 
 ## Procedure
 
-### Crawling
-
-### Pre-Processing
-
-### Modeling
+- Crawling
+- Pre-Processing
+- Modeling
