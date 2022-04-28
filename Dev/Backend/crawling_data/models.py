@@ -32,7 +32,7 @@ class BuildingData(models.Model):
 class ReviewData(models.Model):
     building_name = models.CharField(max_length=50)
     review_content = models.TextField()
-    star_num = models.FloatField()
+    #star_num = models.FloatField()
 
 '''
 def save(self, *args, **kwargs):

@@ -24,6 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/buildingdata/', BuildingInfoAPI.as_view()),
     path('api/buildingdata/<str:slug>/', ReviewListAPI.as_view()),
-    path('api/buildingdata/<str:slug>/analysisInfo', AnalysisAPI.as_view()),
-    path('api/buildingdata/<str:slug>/analysis', ReviewAnalysisAPI.as_view())
+    path('api/buildingdata/<str:slug>/analysisInfo/', AnalysisAPI.as_view()),
+    path('api/buildingdata/<str:slug>/analysis/', ReviewAnalysisAPI.as_view())
 ]
