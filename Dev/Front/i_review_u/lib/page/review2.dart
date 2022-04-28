@@ -392,7 +392,7 @@ class _ReviewState extends State<ReviewAnalysis> {
             // 데이터 없을 때 로딩 처리
             return Center(
                 //child: CircularProgressIndicator(),
-                child: Image.asset("assets/images/loading.jpg"),
+                child: Image.asset("assets/images/analysis.gif"),
             );
           }
           if (snapshot.hasError) {
