@@ -9,8 +9,8 @@ import 'info.dart';
 
 Future<List<Post>> getData() async {
   final response = await http.get(
-      //Uri.parse("http://192.168.55.233:8000/api/buildingdata/"),//세훈
-      Uri.parse("http://192.168.0.9:8000/api/buildingdata/"),
+      Uri.parse("http://192.168.55.233:8000/api/buildingdata/"),//세훈
+      //Uri.parse("http://192.168.0.9:8000/api/buildingdata/"),
       headers: {"Access-Control-Allow-Origin": "*"});
   if (response.statusCode == 200) {
     List list = (json.decode(utf8.decode(response.bodyBytes)));

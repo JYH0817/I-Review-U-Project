@@ -35,8 +35,8 @@ def crawling(search_key, search_cnt, file_name):
 
 
     url = "https://map.naver.com/v5/search/" + search_key #네이버 플레이스 검색
-    driverPath = "chromedriver.exe" #상대경로
-    #driverPath = "D:\\I Review U Project\\Dev\\Backend\\chromedriver.exe" #절대경로
+    #driverPath = "chromedriver.exe" #상대경로
+    driverPath = "D:\\GitHub\\I-Review-U\\Dev\\Backend\\chromedriver.exe" #절대경로 #절대경로
     driver = webdriver.Chrome(driverPath, options=chrome_options)
     driver.implicitly_wait(5) #로딩까지 기다리기 위해 implicitly_wait와 sleep 사용
     driver.get(url) #드라이버로 받은 주소를 실행
@@ -103,10 +103,16 @@ def crawling(search_key, search_cnt, file_name):
                     more_cnt =  review_cnt//10
                 body = driver.find_element_by_css_selector('body')
                 body.click()    
-                for j in range(more_cnt):  #더보기 개수 만큼 스크롤 내리고 클릭        
-                    scrollDown(driver)
-                    more_review = driver.find_element_by_class_name('_3iTUo') #버튼 경로
-                    more_review.click()                    
+                for j in range(more_cnt):  #더보기 개수 만큼 스크롤 내리고 클릭 
+                    #print(more_cnt)       
+                    #wscrollDown(driver)
+                    #more_review = driver.find_element_by_class_name('_3iTUo') #버튼 경로
+                    more_review = driver.find_element_by_css_selector("a._3iTUo")
+                
+                    driver.execute_script("arguments[0].click();", more_review)
+                    #print(more_review.text) #디버깅
+                    #more_wwreview.click()
+                    # #more_review.send_keys('\n')                   
                 scrollDown(driver)    
                 current_page = driver.page_source
                 soup = BeautifulSoup(current_page, 'html.parser') #모든 리뷰를 로드                  
@@ -218,6 +224,5 @@ if __name__ == "__main__":
     Dialog.show()
     sys.exit(app.exec_())
     
-
 
 

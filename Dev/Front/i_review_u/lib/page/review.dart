@@ -26,15 +26,14 @@ Future<List<Post>> getData() async {
 class Post {
   final String buildingName;
   final String review;
-  final String star;
 
-  Post({this.buildingName, this.review, this.star});
+  Post({this.buildingName, this.review});
 
   factory Post.fromJson(Map<String, dynamic> json) {
     return Post(
         buildingName: json["building_name"],
         review: json["review_content"],
-        star: json["star_num"].toString());
+        );
   }
 }
 
@@ -51,8 +50,6 @@ class _ReviewState extends State<Review> {
   ContentsRepository contentsRepository;
   final Map<String, String> locationTypeToString = {
     "default": "작성순",
-    "star":"높은 별점순",
-    "star_asc":"낮은 별점순"
   };
   @override
   void initState() {
@@ -92,8 +89,6 @@ class _ReviewState extends State<Review> {
             // 지역 리스트
             return [
               PopupMenuItem(value: "default", child: Text("작성순")),
-              PopupMenuItem(value: "star", child: Text("높은 별점순")),
-              PopupMenuItem(value: "star_asc", child: Text("낮은 별점순")),
             ];
           },
           child: Row(
@@ -141,11 +136,6 @@ class _ReviewState extends State<Review> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start, // 왼쪽 정렬
                     children: [
-                      Text(
-                        datas[index].star.toString(),
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontSize: 15, color: Colors.orange.withOpacity(0.7)),
-                      ),
                       SizedBox(height: 5),
                       Text(
                         datas[index].review.toString(),
@@ -189,12 +179,6 @@ class _ReviewState extends State<Review> {
             // 데이터 있을 때만
             List<Post> myData = snapshot.data;
             if(currentLocation == "default"){ // 작성순
-            }
-            else if(currentLocation == "star"){ // 별점 높은순
-              myData.sort((b, a) => a.star.compareTo(b.star));
-            }
-            else if(currentLocation == "star_asc"){ // 별점 낮은순
-              myData.sort((a, b) => a.star.compareTo(b.star));
             }
             return _makeDataList(myData);
           }
