@@ -22,11 +22,13 @@ class PororoConfig(AppConfig):
             review_content = row['review_content']
             checked_review = spell_checker.check(review_content)
             clean_review = checked_review.checked
+            expected_star = Pororo(task = "review", lang="ko")
             review['id'] = row['id']
             review['building_name'] = row['building_name']
             review['review_content'] = review_content
             review['checked_review'] = clean_review
-            review['star_num'] = row['star_num']
+            # expected star
+            review['star_num'] = expected_star(review_content)
 
             # positivity
             positivity = sa(review_content,show_probs=True)
@@ -50,18 +52,20 @@ class PororoConfig(AppConfig):
     def analysis(input):
         sa = Pororo(task="sentiment", model="brainbert.base.ko.shopping", lang="ko") # 긍부정분석
         zsl = Pororo(task="zero-topic", lang="ko") # 주제분석
-        attributeList = ["음식","온도","청결","편의성","분위기","친절","가격","위치"]
+        attributeList = ["음식","커피","청결","공부","분위기","친절","가격","위치"]
         new_list = list()
         for row in input:
             review = dict()
             review_content = row['review_content']
             checked_review = spell_checker.check(review_content)
             clean_review = checked_review.checked
+            expected_star = Pororo(task = "review", lang="ko")
             review['id'] = row['id']
             review['building_name'] = row['building_name']
             review['review_content'] = review_content
             review['checked_review'] = clean_review
-            review['star_num'] = row['star_num']
+            # expected star
+            review['star_num'] = round(expected_star(review_content), 1)
 
             # positivity
             positivity = sa(review_content,show_probs=True)

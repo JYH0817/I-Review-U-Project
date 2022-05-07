@@ -10,7 +10,7 @@ Future<List<Post>> getData() async {
   var slug = Get.arguments;
   final response = await http.get(
     //Uri.parse("http://192.168.55.233:8000/api/buildingdata/"),//세훈
-      Uri.parse("http://192.168.55.233:8000/api/buildingdata/" + slug + "/analysis"),
+    Uri.parse("http://192.168.55.233:8000/api/buildingdata/" + slug + "/analysis"),
       headers: {"Access-Control-Allow-Origin": "*"});
   if (response.statusCode == 200) {
     List list = (json.decode(utf8.decode(response.bodyBytes)));
@@ -61,9 +61,9 @@ class _ReviewState extends State<ReviewAnalysis> {
   final Map<String, String> TagTypeToString = {
     "all": "전체",
     "food": "음식",
-    "temperature": "온도",
+    "temperature": "커피",
     "clean": "청결",
-    "convinience": "편의성",
+    "convinience": "공부",
     "mood": "분위기",
     "kind": "친절",
     "price": "가격",
@@ -160,9 +160,9 @@ class _ReviewState extends State<ReviewAnalysis> {
               return [
                 PopupMenuItem(value: "all", child: Text("전체")),
                 PopupMenuItem(value: "food", child: Text("음식")),
-                PopupMenuItem(value: "temperature", child: Text("온도")),
+                PopupMenuItem(value: "temperature", child: Text("커피")),
                 PopupMenuItem(value: "clean", child: Text("청결")),
-                PopupMenuItem(value: "convinience", child: Text("편의성")),
+                PopupMenuItem(value: "convinience", child: Text("공부")),
                 PopupMenuItem(value: "mood", child: Text("분위기")),
                 PopupMenuItem(value: "kind", child: Text("친절")),
                 PopupMenuItem(value: "price", child: Text("가격")),
@@ -230,9 +230,9 @@ class _ReviewState extends State<ReviewAnalysis> {
     List<Post> a, b, c, d, e, f, g, h;
     a = myData.where((x) => x.attribute == "음식").toList();
     print(a);
-    b = myData.where((x) => x.attribute == "온도").toList();
+    b = myData.where((x) => x.attribute == "커피").toList();
     c = myData.where((x) => x.attribute == "청결").toList();
-    d = myData.where((x) => x.attribute == "편의성").toList();
+    d = myData.where((x) => x.attribute == "공부").toList();
     e = myData.where((x) => x.attribute == "분위기").toList();
     f = myData.where((x) => x.attribute == "친절").toList();
     g = myData.where((x) => x.attribute == "가격").toList();
@@ -305,7 +305,7 @@ class _ReviewState extends State<ReviewAnalysis> {
                   size:Size(100,100),
                   painter: BarChart(
                     data: getAttributeList(datas),
-                    labels: ["음식","온도","청결","편의","무드","친절","가격","위치"],
+                    labels: ["음식","커피","청결","공부","무드","친절","가격","위치"],
                     color: Colors.pinkAccent
                   )
 
@@ -410,13 +410,13 @@ class _ReviewState extends State<ReviewAnalysis> {
                 myData = myData.where((x) => x.attribute == "음식").toList();
                 break;
               case "temperature":
-                myData = myData.where((x) => x.attribute == "온도").toList();
+                myData = myData.where((x) => x.attribute == "커피").toList();
                 break;
               case "clean":
                 myData = myData.where((x) => x.attribute == "청결").toList();
                 break;
               case "convinience":
-                myData = myData.where((x) => x.attribute == "편의성").toList();
+                myData = myData.where((x) => x.attribute == "공부").toList();
                 break;
               case "mood":
                 myData = myData.where((x) => x.attribute == "분위기").toList();
