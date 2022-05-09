@@ -15,7 +15,7 @@ class PororoConfig(AppConfig):
     def review(input):
         sa = Pororo(task="sentiment", model="brainbert.base.ko.shopping", lang="ko") # 긍부정분석
         zsl = Pororo(task="zero-topic", lang="ko") # 주제분석
-        attributeList = ["음식","온도","청결","편의성","분위기","친절","가격","위치"]
+        attributeList = ["음식","커피","청결","공부","분위기","친절","가격","위치"]
         new_list = list()
         for row in input:
             review = dict()

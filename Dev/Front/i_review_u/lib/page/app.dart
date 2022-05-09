@@ -69,9 +69,9 @@ class _AppState extends State<App> {
       selectedItemColor: Colors.pink,
       items: [
         _bottomNavigationBarItem("home", "Home"),
-        _bottomNavigationBarItem("notes", "temp"),
-        _bottomNavigationBarItem("location", "temp2"),
-        _bottomNavigationBarItem("chat", "temp3"),
+        _bottomNavigationBarItem("notes", "Note"),
+        _bottomNavigationBarItem("location", "Map"),
+        _bottomNavigationBarItem("chat", "Chat"),
         _bottomNavigationBarItem("user", "My Page"),
       ],
     );

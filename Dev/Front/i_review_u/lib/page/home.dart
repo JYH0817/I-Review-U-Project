@@ -50,9 +50,9 @@ class _HomeState extends State<Home> {
   String currentLocation;
   ContentsRepository contentsRepository;
   final Map<String, String> locationTypeToString = {
-    "sujeong": "수정구 스터디카페",
-    "chungwon": "중원구 스터디카페",
-    "bundang": "분당구 스터디카페",
+    "sujeong": "수정구 카페",
+    "chungwon": "중원구 카페",
+    "bundang": "분당구 카페",
   };
 
   @override
@@ -175,12 +175,13 @@ class _HomeState extends State<Home> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start, // 왼쪽 정렬
                       children: [
+                        SizedBox(height: 15),
                         Text(
                           datas[index].buildingName.toString(),
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(fontSize: 15),
                         ),
-                        SizedBox(height: 5),
+                        SizedBox(height: 10),
                         Text(
                           datas[index].buildingLoc.toString(),
                           style: TextStyle(

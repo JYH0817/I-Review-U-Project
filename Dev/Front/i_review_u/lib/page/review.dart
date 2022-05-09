@@ -136,13 +136,13 @@ class _ReviewState extends State<Review> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start, // 왼쪽 정렬
                     children: [
-                      SizedBox(height: 5),
+                      SizedBox(height: 20),
                       Text(
                         datas[index].review.toString(),
                         style: TextStyle(
-                            fontSize: 10, color: Colors.black.withOpacity(0.7)),
+                            fontSize: 13, color: Colors.black.withOpacity(0.7)),
                       ),
-                      SizedBox(height: 5),
+                      SizedBox(height: 15),
                     ],
                   ),
                 ),

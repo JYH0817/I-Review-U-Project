@@ -70,15 +70,14 @@ class _InfoState extends State<Info> {
           margin: EdgeInsets.all(10),
           padding: EdgeInsets.all(15),
           width: 400,
-          height: 150,
+          height: 180,
           alignment: Alignment.center,
           child: Text(
-            "기본정보\n\n" +
-                "위치: " +
-                value.buildingLoc.toString() +
-                '\n\n전화번호: ' +
-                value.buildingCall.toString(),
+            "기본정보\n\n" + 
+                "\n\n위치: " + value.buildingLoc.toString() +
+                "\n\n전화번호: " + value.buildingCall.toString(),
             style: TextStyle(fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
           ),
         ),
         Container(

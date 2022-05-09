@@ -29,7 +29,7 @@ def crawling(search_key, search_cnt, file_name):
         body = driver.find_element_by_css_selector('body')
         body.click()
         for i in range(50):
-            time.sleep(0.01)
+            time.sleep(0.01) #
             body.send_keys(Keys.PAGE_DOWN)
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight)")
 
