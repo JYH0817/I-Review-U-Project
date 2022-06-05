@@ -39,7 +39,7 @@
 ## Framework
 Flutter, Django, Pororo(kakao brain)
 
-## Procedure
+## Progress
 
 - Crawling
 - Pre-Processing
