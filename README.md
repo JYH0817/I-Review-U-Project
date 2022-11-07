@@ -17,7 +17,7 @@ Flutter, Django, Pororo(kakao brain)
 - Modeling
 
 ## Personal Role
-- Review Crawling (Python BeautifulSoup, Selenium)
+- Review Crawling (Python BeautifulSoup + Selenium)
 - Create API using review data (Python Django)
 - Link between API and Frontend (Django + Flutter) 
 
