@@ -24,4 +24,4 @@ Flutter, Django, Pororo(kakao brain)
 ## Project Link
 - [Project Page](https://github.com/ashpurple/I-Review-U-Project)
 - [Wiki](https://github.com/ashpurple/I-Review-U-Project/wiki)
-- [API repository](https://github.com/ashpurple/I-Review-U-API)
+- [API Repository](https://github.com/ashpurple/I-Review-U-API)
