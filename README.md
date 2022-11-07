@@ -20,5 +20,7 @@ Flutter, Django, Pororo(kakao brain)
 - Pre-Processing
 - Modeling
 
-맡은 역할
-Review Crawling, Create Django API with review data, Link between API and Frontend 
+## Role
+- Review Crawling
+- Create Django API with review data
+- Link between API and Frontend 
