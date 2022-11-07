@@ -18,7 +18,7 @@ Flutter, Django, Pororo(kakao brain)
 
 ## Personal Role
 - Review Crawling
-- Create Django API with review data
+- Create Django API using review data
 - Link between API and Frontend 
 
 ## Project Link
