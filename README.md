@@ -20,7 +20,7 @@ Flutter, Django, Pororo(kakao brain)
 - Pre-Processing
 - Modeling
 
-## Role
+## Personal Role
 - Review Crawling
 - Create Django API with review data
 - Link between API and Frontend 
