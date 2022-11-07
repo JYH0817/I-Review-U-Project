@@ -24,3 +24,8 @@ Flutter, Django, Pororo(kakao brain)
 - Review Crawling
 - Create Django API with review data
 - Link between API and Frontend 
+
+## Project Link
+- [Project Page](https://github.com/ashpurple/I-Review-U-Project)
+- [Wiki](https://github.com/ashpurple/I-Review-U-Project/wiki)
+- [API repository](https://github.com/ashpurple/I-Review-U-API)
