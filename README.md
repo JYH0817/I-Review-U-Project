@@ -10,31 +10,6 @@
 ## Memeber
 [김태희](https://github.com/taehui530), [안세훈](https://github.com/ashpurple), [정영훈](https://github.com/JYH0817), [고준호](https://github.com/JunhoGo)
 
-## Plan
-3학년 1학기
-- 목표: <b>아이디어 선정 및 요구사항 정의</b>
-- 주 1회(일요일) 회의 및 회의록 작성
-- 격주로 스터디 내용 및 구현 사항 문서화
-
-여름방학
-- 목표: <b>프레임워크 스터디</b>
-- 주 1회(일요일) 회의 및 회의록 작성
-- 격주로 스터디 내용 및 구현 사항 문서화
-
-3학년 2학기
-- 목표: <b>프로토 타입 구현</b>
-- 격주 교수님 정기 미팅
-- 주 1회 조원 미팅
-
-겨울방학
-- 목표: <b>모델링 완성</b>
-- 주 1회 조원 미팅
-- 격주로 스터디 내용 및 구현 사항 문서화
-
-4학년 1학기
-- 목표: <b>마케팅 및 API</b>
-- 격주 교수님 정기 미팅
-- 최종 모델 완성 및 API화
 
 ## Framework
 Flutter, Django, Pororo(kakao brain)
@@ -44,3 +19,6 @@ Flutter, Django, Pororo(kakao brain)
 - Crawling
 - Pre-Processing
 - Modeling
+
+맡은 역할
+Review Crawling, Create Django API with review data, Link between API and Frontend 
